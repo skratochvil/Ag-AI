@@ -62,7 +62,7 @@ def getBasicFeatures(listOfImagePaths, csvOutFileName):
     obj.writerows(csvOut)
 
 #Example usage. 
-getBasicFeatures(healthyImagePaths[0:5], 'csvOut.csv')
+#getBasicFeatures(healthyImagePaths[0:5], 'csvOut.csv')
 
 
 
