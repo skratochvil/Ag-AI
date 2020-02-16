@@ -7,7 +7,7 @@ from skimage.io import imread, imshow
 # Retrieves basic image features as .csv file
 # Input: list of file paths for input images, CSV file name for output
 # Output: average pixel intensity for gray, red, blue, and green as CSV file
-# See bottom of file for example usage
+# Uncomment bottom line of file to see sample usage.
 # =============================================================================
 
 #get file paths for blighted images
@@ -22,7 +22,7 @@ for root, dirs, files in os.walk(os.path.abspath("images/healthy")):
     for file in files:
         healthyImagePaths.append(os.path.join(root, file))
         
-def getBasicFeatures(listOfImagePaths, csvFileName):
+def getBasicFeatures(listOfImagePaths, csvOutFileName):
     csvOut = []
     for imagePath in listOfImagePaths:
 # =============================================================================
@@ -56,13 +56,13 @@ def getBasicFeatures(listOfImagePaths, csvFileName):
         featureVector = (imagePath, gray, red, green, blue)
         csvOut.append(featureVector)
 #Save feature vectors as CSV file        
-    csvfile = open(csvFileName,'w', newline='')
+    csvfile = open(csvOutFileName,'w', newline='')
     obj = csv.writer(csvfile)
     obj.writerow(('file', 'gray', 'red', 'green', 'blue'))
     obj.writerows(csvOut)
 
 #Example usage. 
-#getBasicFeatures(healthyImagePaths[0:5], 'csvOut.csv')
+getBasicFeatures(healthyImagePaths[0:5], 'csvOut.csv')
 
 
 
