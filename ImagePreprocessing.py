@@ -172,7 +172,7 @@ def ImageProcessing(folder_name):
     
     blighted_features = allFilesInDir('images/blighted', 'B')
     healthy_features = allFilesInDir('images/healthy', 'H')
-    csvfile = open('csvOut.csv','w')
+    csvfile = open('csvOut.csv','w', newline = '')
     obj = csv.writer(csvfile)
     obj.writerows(blighted_features)
     obj.writerows(healthy_features)
