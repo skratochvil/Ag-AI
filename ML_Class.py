@@ -6,6 +6,11 @@ Created on Thu Feb  6 12:54:45 2020
 """
 
 class ML_Model:
+    """
+    This class creates a machine learning model based on the data sent, data preprocessing, and type of ml classifier.
+    
+    
+    """
             
     def __init__(self, train_data, ml_classifier, DataPreprocessing = None):
         self.DataPreprocessing = DataPreprocessing
@@ -13,7 +18,7 @@ class ML_Model:
         
 #       Split data X and y(resulting variable)
 #       This will most likely change after we decide how to store the data
-        self.X = train_data.iloc[:, : -1].values
+        self.X = train_data.iloc[:, 1 : -1].values
         self.y = train_data.iloc[:, -1].values
 
 #       Preprocess X
@@ -26,6 +31,9 @@ class ML_Model:
         self.ml_model = ml_classifier.fit(self.X, self.y)
         
     def GetKnownPredictions(self, new_data):
+        """
+        
+        """
         new_data_X = new_data.iloc[:, :-1].values
         if self.preprocess_technique != None:
             new_data_X = self.preprocess_technique.fit(new_data_X)
