@@ -11,16 +11,20 @@ from skimage.io import imread, imshow
 # =============================================================================
 
 #get file paths for blighted images
-blightedImagePaths = []
-for root, dirs, files in os.walk(os.path.abspath("images/blighted")):
-    for file in files:
-        blightedImagePaths.append(os.path.join(root, file))
+def getBlightedImagePaths():
+    blightedImagePaths = []
+    for root, dirs, files in os.walk(os.path.abspath("images/blighted")):
+        for file in files:
+            blightedImagePaths.append(os.path.join(root, file))
+    return blightedImagePaths
 
 #get file paths for healthy images        
-healthyImagePaths = []
-for root, dirs, files in os.walk(os.path.abspath("images/healthy")):
-    for file in files:
-        healthyImagePaths.append(os.path.join(root, file))
+def getHealthyImagePaths():
+    healthyImagePaths = []
+    for root, dirs, files in os.walk(os.path.abspath("images/healthy")):
+        for file in files:
+            healthyImagePaths.append(os.path.join(root, file))
+    return healthyImagePaths
         
 def getBasicFeatures(listOfImagePaths, csvOutFileName):
     csvOut = []
@@ -62,7 +66,8 @@ def getBasicFeatures(listOfImagePaths, csvOutFileName):
     obj.writerows(csvOut)
 
 #Example usage. 
-#getBasicFeatures(healthyImagePaths[0:5], 'csvOut.csv')
+#testImages = getHealthyImagePaths()    
+#getBasicFeatures(testImages[0:5], 'csvOut.csv')
 
 
 
