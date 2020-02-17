@@ -6,7 +6,8 @@ from skimage.io import imread, imshow
 # =============================================================================
 # Retrieves basic image features as .csv file
 # Input: list of file paths for input images, CSV file name for output
-# Output: average pixel intensity for gray, red, blue, and green as CSV file
+# Output: average pixel intensity for gray, red, blue, and green,
+# number of pixels within "brown" threshold for each band.
 # Uncomment bottom line of file to see sample usage.
 # =============================================================================
 
@@ -43,7 +44,8 @@ def getBasicFeatures(listOfImagePaths, csvOutFileName):
     #uncomment line below to view image
     #image.shape, imshow(image)
 #convert to 2d array of gray pixel values
-        grayscaleArray = numpy.reshape(image, (6000 * 4000))
+        #grayscaleArray = numpy.reshape(image, (6000 * 4000))
+        grayscaleArray = numpy.reshape(image, -1)
         gray = numpy.mean(grayscaleArray)
 # =============================================================================
 # Calculate features: average intensity of red, blue, and green pixels
@@ -52,15 +54,15 @@ def getBasicFeatures(listOfImagePaths, csvOutFileName):
         image = imread(imagePath)
 #Splits RGB array into color bands and calculates average pixel intensity for each band
         red = image[0:4000, 0:6000, 0]
-        red = numpy.reshape(red, (6000 * 4000))
+        red = numpy.reshape(red, -1)
         redMean = numpy.mean(red)     
 
         green = image[0:4000, 0:6000, 1]
-        green = numpy.reshape(green, (6000 * 4000))
+        green = numpy.reshape(green, -1)
         greenMean = numpy.mean(green)
 
         blue = image [0:4000, 0:6000, 2]
-        blue = numpy.reshape(blue, (6000 * 4000))
+        blue = numpy.reshape(blue, -1)
         blueMean = numpy.mean(blue)
         
 # =============================================================================
