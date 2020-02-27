@@ -11,12 +11,12 @@ from DataPreprocessing import StandardScaling
 from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
 
-folder_name = 'images/'
-ImageProcessing(folder_name)
+#folder_name = 'images/'
+#ImageProcessing(folder_name)
 
 file_name = 'csvOut.csv'
 
-data = pd.read_csv(file_name, header = None)
+data = pd.read_csv(file_name, index_col = 0, header = None)
 ml_classifier = RandomForestClassifier()
 corn_model = ML_Model(data, ml_classifier, DataPreprocessing = StandardScaling)
 accuracies = corn_model.K_fold()

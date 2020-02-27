@@ -18,7 +18,7 @@ class ML_Model:
         
 #       Split data X and y(resulting variable)
 #       This will most likely change after we decide how to store the data
-        self.X = train_data.iloc[:, 1 : -1].values
+        self.X = train_data.iloc[:,: -1].values
         self.y = train_data.iloc[:, -1].values
 
 #       Preprocess X
