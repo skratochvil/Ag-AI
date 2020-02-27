@@ -39,6 +39,7 @@ class ML_Model:
             new_data_X = self.preprocess_technique.transform(new_data_X)
         y_prediction = self.ml_model.predict(new_data_X)
         y_probabilities = self.ml_model.predict_proba(new_data_X)
+        y_probabilities = [max(prob) for prob in y_probabilities]
         return y_prediction, max(y_probabilities)
     
     def GetUnknownPredictions(self, new_data_X):
@@ -46,7 +47,8 @@ class ML_Model:
             new_data_X = self.preprocess_technique.transform(new_data_X)
         y_prediction = self.ml_model.predict(new_data_X)
         y_probabilities = self.ml_model.predict_proba(new_data_X)
-        return y_prediction, max(y_probabilities)
+        y_probabilities = [max(prob) for prob in y_probabilities]
+        return y_prediction, y_probabilities
     
     def K_fold(self):
         from sklearn.model_selection import cross_val_score
