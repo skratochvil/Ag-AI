@@ -8,17 +8,19 @@ Created on Sat Feb  8 11:14:18 2020
 from ML_Class import ML_Model
 from ImagePreprocessing import ImageProcessing
 from DataPreprocessing import StandardScaling
-from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
 
-folder_name = 'image_folder/'
-ImageProcessing(folder_name)
+#folder_name = 'images/'
+#ImageProcessing(folder_name)
 
-file_name = 'data_source.csv'
+file_name = 'csvOut.csv'
 
-data = pd.read_csv(file_name)
-ml_classifier = SVC(kernel = 'linear', random_state = 0)
-Fruit_Model = ML_Model(data, ml_classifier, DataPreprocessing = StandardScaling)
-accuracies = Fruit_Model.K_fold()
+data = pd.read_csv(file_name, index_col = 0, header = None)
+ml_classifier = RandomForestClassifier()
+corn_model = ML_Model(data, ml_classifier, DataPreprocessing = StandardScaling)
+accuracies = corn_model.K_fold()
 average_accuracy = accuracies.mean()
 print('K_fold Accuracy: ' + str(average_accuracy))
+predict, prob = corn_model.GetUnknownPredictions(data.iloc[:2, :-1])
+print(predict)
