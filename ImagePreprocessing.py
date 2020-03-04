@@ -150,15 +150,27 @@ def ImageProcessing(folder_name):
                 fv_hu_moments = FdHuMoments(image)
                 fv_haralick = FdHaralick(image)
 #                fv_histrogram = FdHistogram(image)
-
+             
                 feature_vector = np.hstack([file, fv_hu_moments, fv_haralick, gray_mean, red_mean, green_mean, blue_mean, num_brown_red, num_brown_green, num_brown_blue, label])
-                
                 csvOut.append(feature_vector)
         return csvOut
+    
+    #Please update these column labels if you add features in order to help with feature selection.
+    columnLabels = ('fileName','fvhu','fvhu2','fvhu3','fvhu4','fvhu5','fvhu6','fvhu7',
+                    'fvha1','fvha2','fvha3','fvha4','fvha5','fvha6','fvha7','fvha7',
+                    'fvha8','fvha9','fvha10','fvha11','fvha12',
+                    'gray_mean', 'red_mean', 'green_mean', 'blue_mean', 'num_brown_red', 'num_brown_green', 
+                    'num_brown_blue', 'label')
     
     blighted_features = allFilesInDir('images/blighted', 'B')
     healthy_features = allFilesInDir('images/healthy', 'H')
     csvfile = open('csvOut.csv','w', newline = '')
     obj = csv.writer(csvfile)
+    obj.writerow(columnLabels)
     obj.writerows(blighted_features)
     obj.writerows(healthy_features)
+    
+#ImageProcessing('images')
+print("Images processed")
+    
+    
