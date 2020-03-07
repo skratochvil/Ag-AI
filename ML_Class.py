@@ -12,20 +12,16 @@ class ML_Model:
     
     """
             
-    def __init__(self, train_data, ml_classifier, DataPreprocessing = None):
-        self.DataPreprocessing = DataPreprocessing
+    def __init__(self, train_data, ml_classifier, preprocess):
         self.ml_classifier = ml_classifier
+        self.preprocess = preprocess
         
 #       Split data X and y(resulting variable)
 #       This will most likely change after we decide how to store the data
         self.X = train_data.iloc[:,: -1].values
         self.y = train_data.iloc[:, -1].values
 
-#       Preprocess X
-        if self.DataPreprocessing != None:
-            self.X, self.preprocess_technique = self.DataPreprocessing(self.X)
-        else:
-            self.preprocess_technique = None
+        self.X = self.preprocess.fit_transform(self.X)
         
 #       Build Model
         self.ml_model = ml_classifier.fit(self.X, self.y)
@@ -35,16 +31,14 @@ class ML_Model:
         
         """
         new_data_X = new_data.iloc[:, :-1].values
-        if self.preprocess_technique != None:
-            new_data_X = self.preprocess_technique.transform(new_data_X)
+        new_data_X = self.preprocess.transform(new_data_X)
         y_prediction = self.ml_model.predict(new_data_X)
         y_probabilities = self.ml_model.predict_proba(new_data_X)
         y_probabilities = [max(prob) for prob in y_probabilities]
         return y_prediction, max(y_probabilities)
     
     def GetUnknownPredictions(self, new_data_X):
-        if self.preprocess_technique != None:
-            new_data_X = self.preprocess_technique.transform(new_data_X)
+        new_data_X = self.preprocess.transform(new_data_X)
         y_prediction = self.ml_model.predict(new_data_X)
         y_probabilities = self.ml_model.predict_proba(new_data_X)
         y_probabilities = [max(prob) for prob in y_probabilities]

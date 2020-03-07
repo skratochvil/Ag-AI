@@ -6,21 +6,21 @@ Created on Sat Feb  8 11:14:18 2020
 """
 
 from ML_Class import ML_Model
-from ImagePreprocessing import ImageProcessing
-from DataPreprocessing import StandardScaling
+from DataPreprocessing import DataPreprocessing
 from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
 
-#folder_name = 'images/'
-#ImageProcessing(folder_name)
+preprocess = DataPreprocessing(True)
+ml_classifier = RandomForestClassifier()
 
 file_name = 'csvOut.csv'
-
 data = pd.read_csv(file_name, index_col = 0, header = None)
-ml_classifier = RandomForestClassifier()
-corn_model = ML_Model(data, ml_classifier, DataPreprocessing = StandardScaling)
+
+corn_model = ML_Model(data.iloc[:-2, :], ml_classifier, preprocess)
+
 accuracies = corn_model.K_fold()
+print('K_fold Accuracies: ' + str(accuracies))
 average_accuracy = accuracies.mean()
-print('K_fold Accuracy: ' + str(average_accuracy))
-predict, prob = corn_model.GetUnknownPredictions(data.iloc[:2, :-1])
-print(predict)
+print('K_fold Average Accuracy: ' + str(average_accuracy))
+predict, prob = corn_model.GetUnknownPredictions(data.iloc[198:, :-1])
+print('Test Prediction: (' + predict[0] + ', ' + str(prob[0]) + ') (' + predict[1] + ', ' + str(prob[1]) + ')')
