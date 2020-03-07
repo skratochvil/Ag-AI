@@ -16,7 +16,7 @@ ml_classifier = RandomForestClassifier()
 file_name = 'csvOut.csv'
 data = pd.read_csv(file_name, index_col = 0, header = None)
 
-corn_model = ML_Model(data.iloc[:-2, :], ml_classifier, preprocess)
+corn_model = ML_Model(data.iloc[:, :], ml_classifier, preprocess)
 
 accuracies = corn_model.K_fold()
 print('K_fold Accuracies: ' + str(accuracies))
