@@ -23,7 +23,7 @@ class Active_ML_Model:
         self.X_train = X_train
         self.ml_model = ML_Model(X_train, ml_classifier, preprocess)
     
-    def Continue(self, n_samples = 5, sampling_method):
+    def Continue(self, sampling_method, n_samples = 5):
         X_sample, self.X_test = sampling_method(self.ml_model, n_samples)
         labels = getLables(list(X_sample.index))
         X_sample['y_value'] = labels
