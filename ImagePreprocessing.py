@@ -25,7 +25,7 @@ def getAdvancedFeatures(imageIn):
     lowBlue = 135
     highBlue = 240
     
-    rgb_img = plt.imread(imageIn)
+    rgb_img = imageIn
     red = rgb_img[:, :, 0]
     hsv_img = rgb2hsv(rgb_img)
     hue_img = hsv_img[:, :, 0]
@@ -191,6 +191,7 @@ import numpy as np
 def ImageProcessing(folder_name):
     def allFilesInDir(dir_name, label):
         csvOut = []
+        counter = 0
         for root, dirs, files in os.walk(os.path.abspath(dir_name)):
             for file in files:
 
@@ -215,9 +216,13 @@ def ImageProcessing(folder_name):
 #                fv_histrogram = FdHistogram(image)
 
                 feature_vector = np.hstack([file, fv_hu_moments, fv_haralick, gray_mean, red_mean, green_mean, blue_mean, 
-                                            num_brown_red, num_brown_green, num_brown_blue + advanced_features + label])
+                                            num_brown_red, num_brown_green, num_brown_blue, advanced_features[0], 
+                                            advanced_features[1],  advanced_features[2],  advanced_features[3],
+                                             advanced_features[4],  advanced_features[5],  advanced_features[6], label])
                 
                 csvOut.append(feature_vector)
+                counter += 1
+                print("counter")
         return csvOut
     
     #Please update these column labels if you add features in order to help with feature selection.
