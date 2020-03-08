@@ -14,7 +14,7 @@ preprocess = DataPreprocessing(True)
 ml_classifier = RandomForestClassifier()
 
 file_name = 'csvOut.csv'
-data = pd.read_csv(file_name, index_col = 0, header = None)
+data = pd.read_csv(file_name, index_col = 0)
 
 corn_model = ML_Model(data, ml_classifier, preprocess)
 

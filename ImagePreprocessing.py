@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Sat Feb  8 11:20:09 2020
-
 @author: Donovan
 """
 
@@ -13,8 +12,68 @@ import os
 import csv
 import numpy
 from skimage.io import imread, imshow
+import matplotlib.pyplot as plt
+from skimage.color import rgb2hsv
 #conda install -c anaconda scikit-image
 #BSD 3-Clause
+
+def getAdvancedFeatures(imageIn):
+    lowRed = 165
+    highRed = 240
+    lowGreen = 160
+    highGreen = 200
+    lowBlue = 135
+    highBlue = 240
+    
+    rgb_img = plt.imread(imageIn)
+    red = rgb_img[:, :, 0]
+    hsv_img = rgb2hsv(rgb_img)
+    hue_img = hsv_img[:, :, 0]
+    sat_img = hsv_img[:, :, 1]
+    value_img = hsv_img[:, :, 2]
+    
+    #saturation mask to isolate foreground
+    satMask = (sat_img > .11) | (value_img > .3)
+    #hue and value mask to remove additional brown from background
+    mask = (hue_img > .14) | (value_img > .48)
+    #healthy corn mask to remove healthy corn, leaving only blighted pixels
+    nonBlightMask = hue_img < .14
+    #get foreground
+    rawForeground = np.zeros_like(rgb_img)
+    rawForeground[mask] = rgb_img[mask]
+    #reduce brown in background
+    foreground = np.zeros_like(rgb_img)
+    foreground[satMask] = rawForeground[satMask]
+    #get blighted pixels from foreground
+    blightedPixels = np.zeros_like(rgb_img)
+    blightedPixels[nonBlightMask] = foreground[nonBlightMask]
+    #combine into one band
+    blightedHSV = np.bitwise_or(blightedPixels[:,:,0], blightedPixels[:,:,1])
+    blightedHSV = np.bitwise_or(blightedHSV, blightedPixels[:,:,2])
+    
+    red = rgb_img[:, :, 0]
+    green = rgb_img[:, :, 1]
+    blue = rgb_img [:, :, 2]
+    binary_green = lowGreen < green
+    binary_blue = lowBlue < blue
+    binary_red = lowRed < red 
+    RGB_Blights = np.bitwise_and(binary_red, binary_green)
+    #'brown' pixels within each RGB threshold
+    RGB_Blights = np.bitwise_and(RGB_Blights, binary_blue)
+    HSV_and_RGB = np.bitwise_and(RGB_Blights, blightedHSV)
+    #get features
+    numForegroundPixels = np.count_nonzero(foreground)
+    numBlightedHSVPixels = np.count_nonzero(blightedHSV)
+    blightedHSVRatio = numBlightedHSVPixels / numForegroundPixels
+    num_RGB_blightedPixels = np.count_nonzero(RGB_Blights)
+    blightedRGBRatio = num_RGB_blightedPixels / numForegroundPixels 
+    numBlightedBothPixels = np.count_nonzero(HSV_and_RGB)
+    blightedBothRatio = numBlightedBothPixels / numForegroundPixels  
+    returnValues = (numForegroundPixels, numBlightedHSVPixels, blightedHSVRatio, num_RGB_blightedPixels,
+                    blightedRGBRatio, numBlightedBothPixels, blightedBothRatio)
+   
+    return returnValues
+
 
 def avgGray(image):
     grayscaleArray = numpy.reshape(image, -1)
@@ -148,21 +207,32 @@ def ImageProcessing(folder_name):
                 num_brown_red = numBrownRed(image)
                 num_brown_green = numBrownGreen(image)
                 num_brown_blue = numBrownBlue(image)
+                advanced_features = getAdvancedFeatures(image)
                 
                 image = cv2.imread(os.path.join(root, file))
                 fv_hu_moments = FdHuMoments(image)
                 fv_haralick = FdHaralick(image)
 #                fv_histrogram = FdHistogram(image)
 
-                feature_vector = np.hstack([file, fv_hu_moments, fv_haralick, gray_mean, red_mean, green_mean, blue_mean, num_brown_red, num_brown_green, num_brown_blue, label])
+                feature_vector = np.hstack([file, fv_hu_moments, fv_haralick, gray_mean, red_mean, green_mean, blue_mean, 
+                                            num_brown_red, num_brown_green, num_brown_blue + advanced_features + label])
                 
                 csvOut.append(feature_vector)
         return csvOut
+    
+    #Please update these column labels if you add features in order to help with feature selection.
+    columnLabels = ('fileName','fvhu','fvhu2','fvhu3','fvhu4','fvhu5','fvhu6','fvhu7',
+                    'fvha1','fvha2','fvha3','fvha4','fvha5','fvha6','fvha7','fvha7',
+                    'fvha8','fvha9','fvha10','fvha11','fvha12',
+                    'gray_mean', 'red_mean', 'green_mean', 'blue_mean', 'num_brown_red', 'num_brown_green', 
+                    'num_brown_blue', 'numForegroundPxls', 'blightedHSV_pxls', 'blightedHSV_ratio', 
+                    'numRGB_blightedPxls', 'blightedRGBRatio', 'RGB_and_HSV_blighted', 'RGB_and_HSV_both_ratio', 'label')
     
     blighted_features = allFilesInDir('images/blighted', 'B')
     healthy_features = allFilesInDir('images/healthy', 'H')
     csvfile = open('csvOut.csv','w', newline = '')
     obj = csv.writer(csvfile)
+    obj.writerow(columnLabels)
     obj.writerows(blighted_features)
     obj.writerows(healthy_features)
 
