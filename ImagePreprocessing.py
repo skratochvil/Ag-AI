@@ -222,7 +222,7 @@ def ImageProcessing(folder_name):
                 
                 csvOut.append(feature_vector)
                 counter += 1
-                print("counter")
+                print(counter)
         return csvOut
     
     #Please update these column labels if you add features in order to help with feature selection.
