@@ -27,5 +27,7 @@ def Intermediate():
 @app.route("/Final.html",methods=['GET'])   
 def Final():
     return render_template('Final.html')
-app.run( host='127.0.0.1', port=666, debug='True')
+#1st arg must be set to 0.0.0.0 for external server
+#why port 666? 
+app.run( host='127.0.0.1', port=5000, debug='True')
 
