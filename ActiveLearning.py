@@ -2,6 +2,8 @@
 """
 Created on Sat Mar  7 13:30:29 2020
 
+This file is used to test the Active Learning model.
+
 @author: Donovan
 """
 
