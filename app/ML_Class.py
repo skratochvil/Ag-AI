@@ -191,8 +191,29 @@ class Active_ML_Model:
         import pandas as pd
         self.sample, self.test = sampling_method(self.ml_model, n_samples)
     
-    def sendProgress(self):
-        return None
+    def infoForProgress(self):
+        y_actual = self.ml_model.train['y_value']
+        y_pic = list(self.ml_model.train.index)
+        y_pred, y_prob = self.ml_model.GetKnownPredictions(self.ml_model.train)
+        y_pred = list(y_pred)
+        correct_pic = []
+        incorrect_pic = []
+        for y_idx, y in enumerate(y_actual):
+            if y == y_pred[y_idx]:
+                correct_pic.append(y_pic[y_idx])
+            else:
+                incorrect_pic.append(y_pic[y_idx])
+        return correct_pic, incorrect_pic
     
-    def sendResults(self):
-        return None
+    def infoForResults(self):
+        correct_pic, incorrect_pic = self.infoForProgress()
+        test_pic = list(self.ml_model.train.idx)
+        y_pred, y_prob = self.ml_model.GetUnknownPredictions(self.ml_model.test)
+        health_pic = []
+        blight_pic = []
+        for y_idx, y in enumerate(y_pred):
+            if y == 'H':
+                health_pic.append(test_pic[y_idx])
+            elif y == 'B':
+                blight_pic.append(test_pic[y_idx])                
+        return correct_pic, incorrect_pic, health_pic, blight_pic
