@@ -19,10 +19,10 @@ def home():
     session.pop('model', None)
     return render_template('index.html')
 
-@app.route("/label",methods=['GET', 'Post'])   
+@app.route("/label.html",methods=['GET', 'Post'])   
 def label():
     form = LabelForm()
-    if 'model' in session:#Start
+    if 'model' not in session:#Start
         session['confidence'] = .6
         session['accuracy'] = 0
         session['labels'] = []
@@ -33,7 +33,7 @@ def label():
         data = data.iloc[:, :-1]
         session['model'] = Active_ML_Model(data, ml_classifier, preprocess)
         session['queue'] = list(session['model'].sample.index)
-        return render_template(url_for('label'), picture = session['queue'].pop(), confidence = session['confidence'])
+        return render_template(url_for('label'),form = form, picture = session['queue'].pop(), confidence = session['confidence'])
 
     elif form.is_submitted() and session['queue'] == [] and session['labels'] == []: # Need more pictures
         sampling_method = lowestPercentage
@@ -42,7 +42,7 @@ def label():
 
     elif form.is_submitted() and session['queue'] == []:# Finished Labeling
         import numpy as np
-        session['labels'].append(form._____.data)
+        session['labels'].append(form._____.choice)
         session['model'].sample['y_value'] = session['labels']
         session['model'].Train(session['model'].sample)
         session['accuracy'] = np.mean(session['model'].ml_model.K_fold())
@@ -53,26 +53,28 @@ def label():
             -pass these labels like 'confidence'
             -change 'intermediate.html' to accept the new labels. Exp = {{ confidence }}
             """
-            return render_template('intermediate.html', confidence = session['accuracy'])
+            correct_pic, incorrect_pic = session['model'].infoForProgress()
+            return render_template('intermediate.html', form = form, confidence = session['accuracy'])
         else:
             """
             -find variables for the intermediate results.
             -pass these labels like 'confidence'
             -change 'intermediate.html' to accept the new labels. Exp = {{ confidence }}
             """
-            return render_template('final.html', confidence = session['accuracy'])
+            correct_pic, incorrect_pic,health_pic, blight_pic = session['model'].infoForResults()
+            return render_template('final.html', form = form, confidence = session['accuracy'])
 
     elif form.is_submitted() and session['queue'] != []: #Still gathering labels
         session['labels'].append(form.____.data)
         return render_template(url_for('label'), picture = session['queue'].pop(), confidence = session['confidence'])
     return render_template('label.html', form = form)
 
-@app.route("/intermediate",methods=['GET'])   
+@app.route("/intermediate.html",methods=['GET'])   
 def intermediate():
     return render_template('intermediate.html')
 
 
-@app.route("/final",methods=['GET'])   
+@app.route("/final.html",methods=['GET'])   
 def Final():
     return render_template('final.html')
 #1st arg must be set to 0.0.0.0 for external server
