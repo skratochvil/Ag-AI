@@ -10,6 +10,7 @@ from app.forms import LabelForm
 from flask_bootstrap import Bootstrap
 from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
+import os
 
 bootstrap = Bootstrap(app)
 
@@ -28,7 +29,7 @@ def label():
         session['labels'] = []
         preprocess = DataPreprocessing(True)
         ml_classifier = RandomForestClassifier()
-        file_name = 'csvOut.csv'
+        file_name = os.path.join(app.root_path, '', 'csvOut.csv')
         data = pd.read_csv(file_name, index_col = 0, header = None)
         data = data.iloc[:, :-1]
         session['model'] = Active_ML_Model(data, ml_classifier, preprocess)
