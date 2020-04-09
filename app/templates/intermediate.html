@@ -10,25 +10,19 @@
 	</div>
 	
 	<div class = "middle">
-		<br><th>Healthy: 20</th>
+		<br><th>Correct: {{numIntermediateCorrect}}</th>
 		<br>
-  		<th><div class="Frame">	
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >	
+  		<th><div class="Frame">
+				{%for i in range(0, 6)%}
+					<img src="../images/{{correct[i]}}">
+				{%endfor%}
 		</div></th>
-		<br><th>Unhealthy: 30</th>
+		<br><th>Incorrect: {{numIntermediateIncorrect}}</th>
 		<br>
-  		<th><div class="Frame">	
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >	
+  		<th><div class="Frame">
+				{%for i in range(0, 6)%}}
+					<img src="../images/{{incorrect[i]}}">
+				{%endfor%}
 		</div></th>
 		<a href = "Final.html" class="button">See Final Results</a>
 	</div>

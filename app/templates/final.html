@@ -9,49 +9,34 @@
 	</div>
 	
 	<div class = "middle">
-		<br><th>Healthy(User): 20</th>
+		<br><th>Correct(User): {{numCorrectUser}}</th>
 		<br>
- 		<th><div class="Frame">	
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >			
+ 		<th><div class="Frame">
+			{%for i in range(0, 6)%}}
+				<img src="../images/{{correctUser[i]}}" >
 		</div></th>
 
-		<br><th>Unhealthy(User): 30</th>
+		<br><th>Incorrect(User): {{numIncorrectUser}}</th>
 		<br>
-		<th><div class="Frame">	
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >	
+		<th><div class="Frame">
+			{%for i in range(0, 6)%}}
+			<img src="../images/{{incorrectUser[i]}}" >
 		</div></th>
 
-		<br><th>Healthy(Machine): 40</th>
+		<br><th>HealthyTest(Machine): {{numHealthyTestMachine}}</th>
 		<br>
-		<th><div class="Frame">	
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >		
+		<th><div class="Frame">
+			{%for i in range(0, 6)%}}
+			<img src="../images/{{healthyTestMachine[i]}}" >
 		</div></th>
 
-		<br><th>Unhealthy(Machine): 50</th>
+		<br><th>UnhealthyTest(Machine): {{numUnhealthyTestMachine}}</th>
 		<br>
-		<th><div class="Frame">	
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >
-				<img src="../images/UI/filenotfound.png" >	
+		<th><div class="Frame">
+			{%for i in range(0, 6)%}}
+			<img src="../images/{{unhealthyTestMachine[i]}}" >
 		</div></th>
+
 	</div>
 </body>
 </html>
