@@ -16,20 +16,20 @@
 				<img src="../images/{{correctUser[i]}}" >
 		</div></th>
 
+
 		<br><th>Incorrect(User): {{numIncorrectUser}}</th>
 		<br>
 		<th><div class="Frame">
 			{%for i in range(0, 6)%}}
 			<img src="../images/{{incorrectUser[i]}}" >
 		</div></th>
-
+		<!-- These images haven't been sent to the user -->
 		<br><th>HealthyTest(Machine): {{numHealthyTestMachine}}</th>
 		<br>
 		<th><div class="Frame">
 			{%for i in range(0, 6)%}}
 			<img src="../images/{{healthyTestMachine[i]}}" >
 		</div></th>
-
 		<br><th>UnhealthyTest(Machine): {{numUnhealthyTestMachine}}</th>
 		<br>
 		<th><div class="Frame">
