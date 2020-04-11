@@ -4,6 +4,9 @@ Created on Thu Feb  6 12:54:45 2020
 
 @author: Donovan
 """
+import json
+from json import JSONEncoder
+
 class ML_Model:
     """
     This class creates a machine learning model based on the data sent, 
@@ -104,8 +107,35 @@ class ML_Model:
             The 10 accuracy values using 10-fold cross-validation.
         """
         from sklearn.model_selection import cross_val_score
-        accuracies = cross_val_score(self.ml_classifier, self.X, self.y, cv=10)    
+        accuracies = cross_val_score(self.ml_classifier, self.X, self.y, cv=3)    
         return accuracies
+
+    def infoForProgress(self, train_img_label):
+        y_actual = self.y
+        y_pic = train_img_label
+        y_pred = self.ml_model.predict(self.X)
+        y_pred = list(y_pred)
+        correct_pic = []
+        incorrect_pic = []
+        for y_idx, y in enumerate(y_actual):
+            if y == y_pred[y_idx]:
+                correct_pic.append(y_pic[y_idx])
+            else:
+                incorrect_pic.append(y_pic[y_idx])
+        return correct_pic, incorrect_pic
+    
+    def infoForResults(self, train_img_label, test):
+        correct_pic, incorrect_pic = self.infoForProgress()
+        test_pic = train_img_label
+        y_pred, y_prob = self.GetUnknownPredictions(test)
+        health_pic = []
+        blight_pic = []
+        for y_idx, y in enumerate(y_pred):
+            if y == 'H':
+                health_pic.append(test_pic[y_idx])
+            elif y == 'B':
+                blight_pic.append(test_pic[y_idx])                
+        return correct_pic, incorrect_pic, health_pic, blight_pic
 
 class Active_ML_Model:
     """
@@ -113,7 +143,7 @@ class Active_ML_Model:
     data preprocessing, and type of ml classifier.
     
     """
-    def __init__(self, data, ml_classifier, preprocess, n_samples = 5):
+    def __init__(self, data, ml_classifier, preprocess, n_samples = 10):
         """
         This function controls the initial creation of the active learning model.
         
@@ -217,3 +247,7 @@ class Active_ML_Model:
             elif y == 'B':
                 blight_pic.append(test_pic[y_idx])                
         return correct_pic, incorrect_pic, health_pic, blight_pic
+    
+class AL_Encoder(JSONEncoder):
+    def default(self, o):
+        return o.__dict__

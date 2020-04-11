@@ -3,5 +3,5 @@ from wtforms import RadioField, SubmitField
 from wtforms.validators import DataRequired
 
 class LabelForm(FlaskForm):
-    choice = RadioField(u'Label', choices=[('1', u'Healthy'), ('2', u'UnHealthy')], validators = [DataRequired()])
+    choice = RadioField(u'Label', choices=[('H', u'Healthy'), ('B', u'UnHealthy')], validators = [DataRequired()])
     submit = SubmitField('Add Label')

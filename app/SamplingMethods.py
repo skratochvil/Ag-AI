@@ -34,4 +34,4 @@ def lowestPercentage(al_model, n):
     
     X_sample = X_test.iloc[:n, :]
     new_X_test = X_test.iloc[n:, :]
-    return shuffle(X_sample), shuffle(new_X_test.shuffle())
+    return list(shuffle(X_sample.index.values)), list(shuffle(new_X_test.index.values))
