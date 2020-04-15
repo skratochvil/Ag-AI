@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Feb  6 12:54:45 2020
-
 @author: Donovan
 """
 import json
@@ -110,9 +109,9 @@ class ML_Model:
         accuracies = cross_val_score(self.ml_classifier, self.X, self.y, cv=3)    
         return accuracies
 
-    def infoForProgress(self, train_img_label):
+    def infoForProgress(self, train_img_names):
         y_actual = self.y
-        y_pic = train_img_label
+        y_pic = train_img_names
         y_pred = self.ml_model.predict(self.X)
         y_pred = list(y_pred)
         correct_pic = []
@@ -124,9 +123,9 @@ class ML_Model:
                 incorrect_pic.append(y_pic[y_idx])
         return correct_pic, incorrect_pic
     
-    def infoForResults(self, train_img_label, test):
-        correct_pic, incorrect_pic = self.infoForProgress(train_img_label)
-        test_pic = train_img_label
+    def infoForResults(self, train_img_names, test):
+        correct_pic, incorrect_pic = self.infoForProgress(train_img_names)
+        test_pic = list(test.index.values)
         y_pred, y_prob = self.GetUnknownPredictions(test)
         health_pic = []
         blight_pic = []
@@ -180,7 +179,6 @@ class Active_ML_Model:
     def Train(self, sample):
         """
         This function trains the innitial ml_model
-
         Parameters
         ----------
         train : pandas DataFrame

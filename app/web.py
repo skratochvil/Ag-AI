@@ -25,8 +25,8 @@ def label():
     form = LabelForm()
     if 'model' not in session:#Start
         print("Start")
-        session['confidence'] = .6
-        session['accuracy'] = 0
+        session['confidence'] = 0
+        session['confidence_break'] = .7
         session['labels'] = []
         preprocess = DataPreprocessing(True)
         ml_classifier = RandomForestClassifier()
@@ -49,21 +49,32 @@ def label():
         session['queue'] = queue
         return render_template(url_for('label'),form = form, picture = img, confidence = session['confidence'])
 
-    elif form.is_submitted() and session['queue'] == [] and session['labels'] == []: # Need more pictures
+    elif session['queue'] == [] and session['labels'] == []: # Need more pictures
         print("Need more pictures")
         sampling_method = lowestPercentage
         file_name = os.path.join(app.root_path, '', 'csvOut.csv')
+        
         data = pd.read_csv(file_name, index_col = 0, header = None)
         data = data.iloc[:, :-1]
         
         train_names, train_labels = list(zip(*session['train']))
         train_set = data.loc[train_names, :]
+
+        test_set = data[data.index.isin(train_names) == False]
         
         train_set['y_value'] = train_labels
         
         ml_model = ML_Model(train_set, RandomForestClassifier(), DataPreprocessing(True))
-        session['sample'], session['test'] = sampling_method(ml_model, 5)
-        session['queue'] = list(session['model'].sample.index.values)
+
+        session['sample_idx'], session['test'] = sampling_method(ml_model, test_set, 5)
+        session['queue'] = session['sample_idx'].copy()
+
+        queue = session['queue']
+        img = queue.pop()
+        session['queue'] = queue
+        
+        return render_template(url_for('label'),form = form, picture = img, confidence = session['confidence'])
+
 
     elif form.is_submitted() and session['queue'] == []:# Finished Labeling
         print("Finished Labeling")
@@ -73,6 +84,7 @@ def label():
         session['labels'] = labels
         print(session['labels'])
         session['sample'] = tuple(zip(session['sample_idx'], session['labels']))
+        print(len(session['sample_idx']))
         
         if session['train'] != None:
             session['train'] = session['train'] + session['sample']
@@ -90,21 +102,21 @@ def label():
         print(train_set)
         ml_model = ML_Model(train_set, RandomForestClassifier(), DataPreprocessing(True))        
         
-        session['accuracy'] = np.mean(ml_model.K_fold())
+        session['confidence'] = np.mean(ml_model.K_fold())
         session['labels'] = []
-        if session['accuracy'] < session['confidence']:
+        if session['confidence'] < session['confidence_break']:
             print (train_img_label)
             print ("Testing a print statement")
             correct_pic, incorrect_pic = ml_model.infoForProgress(train_img_names)
             correct_len = len(correct_pic)
             incorrect_len = len(incorrect_pic)
             print(incorrect_pic)
-            return render_template('intermediate.html', form = form, confidence = session['accuracy'], correct = correct_pic, incorrect = incorrect_pic, correctNum = correct_len, incorrectNum = incorrect_len)
+            return render_template('intermediate.html', form = form, confidence = session['confidence'], correct = correct_pic, incorrect = incorrect_pic, correctNum = correct_len, incorrectNum = incorrect_len)
         else:
             test_set = data.loc[session['test'], :]
-            correct_pic, incorrect_pic, health_pic, blight_pic = ml_model.infoForResults(train_img_label, test_set)
+            correct_pic, incorrect_pic, health_pic, blight_pic = ml_model.infoForResults(train_img_names, test_set)
             print(incorrect_pic)
-            return render_template('final.html', form = form, confidence = session['accuracy'])
+            return render_template('final.html', form = form, confidence = session['confidence'])
 
     elif form.is_submitted() and session['queue'] != []: #Still gathering labels
         print("Still gathering labels")
@@ -129,3 +141,4 @@ def Final():
 #1st arg must be set to 0.0.0.0 for external server
 #why port 666? 
 #app.run( host='127.0.0.1', port=5000, debug='True', use_reloader = False)
+
