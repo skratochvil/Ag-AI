@@ -125,7 +125,7 @@ class ML_Model:
         return correct_pic, incorrect_pic
     
     def infoForResults(self, train_img_label, test):
-        correct_pic, incorrect_pic = self.infoForProgress()
+        correct_pic, incorrect_pic = self.infoForProgress(train_img_label)
         test_pic = train_img_label
         y_pred, y_prob = self.GetUnknownPredictions(test)
         health_pic = []

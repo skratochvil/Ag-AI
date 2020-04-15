@@ -52,7 +52,16 @@ def label():
     elif form.is_submitted() and session['queue'] == [] and session['labels'] == []: # Need more pictures
         print("Need more pictures")
         sampling_method = lowestPercentage
-        ml_model = ML_Model(session['train'], RandomForestClassifier(), DataPreprocessing(True))
+        file_name = os.path.join(app.root_path, '', 'csvOut.csv')
+        data = pd.read_csv(file_name, index_col = 0, header = None)
+        data = data.iloc[:, :-1]
+        
+        train_names, train_labels = list(zip(*session['train']))
+        train_set = data.loc[train_names, :]
+        
+        train_set['y_value'] = train_labels
+        
+        ml_model = ML_Model(train_set, RandomForestClassifier(), DataPreprocessing(True))
         session['sample'], session['test'] = sampling_method(ml_model, 5)
         session['queue'] = list(session['model'].sample.index.values)
 
@@ -84,9 +93,13 @@ def label():
         session['accuracy'] = np.mean(ml_model.K_fold())
         session['labels'] = []
         if session['accuracy'] < session['confidence']:
-            correct_pic, incorrect_pic = ml_model.infoForProgress(train_img_label)
+            print (train_img_label)
+            print ("Testing a print statement")
+            correct_pic, incorrect_pic = ml_model.infoForProgress(train_img_names)
+            correct_len = len(correct_pic)
+            incorrect_len = len(incorrect_pic)
             print(incorrect_pic)
-            return render_template('intermediate.html', form = form, confidence = session['accuracy'])
+            return render_template('intermediate.html', form = form, confidence = session['accuracy'], correct = correct_pic, incorrect = incorrect_pic, correctNum = correct_len, incorrectNum = incorrect_len)
         else:
             test_set = data.loc[session['test'], :]
             correct_pic, incorrect_pic, health_pic, blight_pic = ml_model.infoForResults(train_img_label, test_set)

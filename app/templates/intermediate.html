@@ -10,21 +10,21 @@
 	</div>
 	
 	<div class = "middle">
-		<br><th>Correct: {{numIntermediateCorrect}}</th>
+		<br><th>Correct: {{correctNum}}</th>
 		<br>
   		<th><div class="Frame">
-				{%for i in range(0, 6)%}
-					<img src="../images/{{correct[i]}}">
+				{%for i in correct%}
+					{{i}}
 				{%endfor%}
 		</div></th>
-		<br><th>Incorrect: {{numIntermediateIncorrect}}</th>
+		<br><th>Incorrect: {{incorrectNum}}</th>
 		<br>
   		<th><div class="Frame">
-				{%for i in range(0, 6)%}}
-					<img src="../images/{{incorrect[i]}}">
+				{%for i in incorrect%}
+					{{i}} 
 				{%endfor%}
 		</div></th>
-		<a href = "Final.html" class="button">See Final Results</a>
+		<a href = "final.html" class="button">See Final Results</a>
 	</div>
 	
 </body>
