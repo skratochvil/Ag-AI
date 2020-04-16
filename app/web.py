@@ -120,7 +120,7 @@ def label():
             health_len = len(health_pic)
             blight_len = len(blight_pic)
             print(incorrect_pic)
-            return render_template('final.html', form = form, confidence = session['confidence'], correct = correct_pic, incorrect = incorrect_pic, correctNum = correct_len, incorrectNum = incorrect_len, health = health_pic, unhealthy = blight_pic, healthNum = health_len, unhealthyNum = blight_len)
+            return render_template('final.html', form = form, confidence = session['confidence'], correct = correct_pic, incorrect = incorrect_pic, correctNum = correct_len, incorrectNum = incorrect_len, healthy = health_pic, unhealthy = blight_pic, healthyNum = health_len, unhealthyNum = blight_len)
 
     elif form.is_submitted() and session['queue'] != []: #Still gathering labels
         print("Still gathering labels")
