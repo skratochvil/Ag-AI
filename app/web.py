@@ -115,8 +115,12 @@ def label():
         else:
             test_set = data.loc[session['test'], :]
             correct_pic, incorrect_pic, health_pic, blight_pic = ml_model.infoForResults(train_img_names, test_set)
+            correct_len = len(correct_pic)
+            incorrect_len = len(incorrect_pic)
+            health_len = len(health_pic)
+            blight_len = len(blight_pic)
             print(incorrect_pic)
-            return render_template('final.html', form = form, confidence = session['confidence'])
+            return render_template('final.html', form = form, confidence = session['confidence'], correct = correct_pic, incorrect = incorrect_pic, correctNum = correct_len, incorrectNum = incorrect_len, health = health_pic, unhealthy = blight_pic, healthNum = health_len, unhealthyNum = blight_len)
 
     elif form.is_submitted() and session['queue'] != []: #Still gathering labels
         print("Still gathering labels")

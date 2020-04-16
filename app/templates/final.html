@@ -9,38 +9,37 @@
 	</div>
 	
 	<div class = "middle">
-		<br><th>Correct(User): {{numCorrectUser}}</th>
+		<br><th>Correct(User): {{correctNum}}</th>
 		<br>
  		<th><div class="Frame">
-			{%for i in range(0, 6)%}}
-				<img src="../images/{{correctUser[i]}}" >
-			{%endfor%}
+			{%for i in correct%}
+    			<img src="https://cornaistorage.s3.us-east-2.amazonaws.com/images/{{i}}" style="width:50px;height:50px;" >
+    		{%endfor%}
 
 		</div></th>
 
 
-		<br><th>Incorrect(User): {{numIncorrectUser}}</th>
+		<br><th>Incorrect(User): {{incorrectNum}}</th>
 		<br>
 		<th><div class="Frame">
-			{%for i in range(0, 6)%}}
-			<img src="../images/{{incorrectUser[i]}}" >
-			{%endfor%}
+			{%for i in incorrect%}
+    			<img src="https://cornaistorage.s3.us-east-2.amazonaws.com/images/{{i}}" style="width:50px;height:50px;" >
+    		{%endfor%}
 
 		</div></th>
 		<!-- These images haven't been sent to the user -->
-		<br><th>HealthyTest(Machine): {{numHealthyTestMachine}}</th>
+		<br><th>HealthyTest(Machine): {{healthyNum}}</th>
 		<br>
 		<th><div class="Frame">
-			{%for i in range(0, 6)%}}
-			<img src="../images/{{healthyTestMachine[i]}}" >
-			{%endfor%}
-
+			{%for i in healthy%}
+    			<img src="https://cornaistorage.s3.us-east-2.amazonaws.com/images/{{i}}" style="width:50px;height:50px;" >
+    		{%endfor%}
 		</div></th>
-		<br><th>UnhealthyTest(Machine): {{numUnhealthyTestMachine}}</th>
+		<br><th>UnhealthyTest(Machine): {{unhealthyNum}}</th>
 		<br>
 		<th><div class="Frame">
-			{%for i in range(0, 6)%}}
-			<img src="../images/{{unhealthyTestMachine[i]}}" >
+			{%for i in unhealthy%}
+    			<img src="https://cornaistorage.s3.us-east-2.amazonaws.com/images/{{i}}" style="width:50px;height:50px;" >
     		{%endfor%}
 
 		</div></th>
