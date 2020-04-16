@@ -73,7 +73,7 @@ def label():
         img = queue.pop()
         session['queue'] = queue
         
-        return render_template(url_for('label'),form = form, picture = img, confidence = session['confidence'])
+        return render_template(url_for('label'),form = form,  picture  = img, confidence = session['confidence'])
 
 
     elif form.is_submitted() and session['queue'] == []:# Finished Labeling

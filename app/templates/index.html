@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-<link rel="stylesheet" href="homeStyle.css">
-<head>
- 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
- 	<title>AI for Agriculture</title>
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Styles/stylesheet.css') }}">
-</head>
+{% extends "base.html" %}
+
+{% block content %}
 <body>
 	<!--This entire div could potentially be made into a re-usable chunk later-->
 	<div class = "heading">
@@ -25,3 +20,5 @@
 		Any additional legal info here
 	</div>
 </body>
+</html>
+{% endblock %}

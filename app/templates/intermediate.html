@@ -14,14 +14,14 @@
 		<br>
   		<th><div class="Frame">
 				{%for i in correct%}
-					<img src="https://cornaistorage.s3.us-east-2.amazonaws.com/images/"+{{i}}>
+					<img src="https://cornaistorage.s3.us-east-2.amazonaws.com/images/{{i}}" style="width:50px;height:50px;" >
 				{%endfor%}
 		</div></th>
 		<br><th>Incorrect: {{incorrectNum}}</th>
 		<br>
   		<th><div class="Frame">
 				{%for i in incorrect%}
-					<img src="https://cornaistorage.s3.us-east-2.amazonaws.com/images/"+{{i}}>
+					<img src="https://cornaistorage.s3.us-east-2.amazonaws.com/images/"+{{i}} style="width:50px;height:50px;" >
 				{%endfor%}
 		</div></th>
 		<a href = "final.html" class="button">See Final Results</a>
