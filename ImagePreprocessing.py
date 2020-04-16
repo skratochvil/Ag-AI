@@ -3,7 +3,19 @@
 Created on Sat Feb  8 11:20:09 2020
 @author: Donovan
 """
+import cv2
+#conda install -c conda-forge opencv=3.4.1
+#3-Clause BSD License
 
+import os
+import csv
+import numpy as np
+from skimage.io import imread, imshow
+import matplotlib.pyplot as plt
+from skimage.color import rgb2hsv
+
+#conda install -c anaconda scikit-image
+#BSD 3-Clause
 
 class ImagePreprocessing:
     """@package ImagePreprocessing
@@ -11,21 +23,21 @@ This class extracts a number of features from the images and saves them in a CSV
 to be used by the machine learning class.
 
 """
+    def __init__(self):
+        import cv2
+        #conda install -c conda-forge opencv=3.4.1
+        #3-Clause BSD License
 
-    import cv2
-    #conda install -c conda-forge opencv=3.4.1
-    #3-Clause BSD License
-    
-    import os
-    import csv
-    import numpy
-    from skimage.io import imread, imshow
-    import matplotlib.pyplot as plt
-    from skimage.color import rgb2hsv
-    #conda install -c anaconda scikit-image
-    #BSD 3-Clause
-    
-    def getAdvancedFeatures(imageIn):
+        import os
+        import csv
+        import numpy as np
+        from skimage.io import imread, imshow
+        import matplotlib.pyplot as plt
+        from skimage.color import rgb2hsv
+        
+      
+ 
+    def getAdvancedFeatures(self, imageIn):
         """
         Returns a tuple of advanced features.
 
@@ -96,49 +108,48 @@ to be used by the machine learning class.
        
         return returnValues
     
-    
-    def avgGray(image):
-        grayscaleArray = numpy.reshape(image, -1)
-        gray_mean = numpy.mean(grayscaleArray)
+    def avgGray(self, image):
+        grayscaleArray = np.reshape(image, -1)
+        gray_mean = np.mean(grayscaleArray)
         return gray_mean
     
-    def avgRed(image):
+    def avgRed(self, image):
         red = image[0:4000, 0:6000, 0]
-        red = numpy.reshape(red, -1)
-        red_mean = numpy.mean(red)
+        red = np.reshape(red, -1)
+        red_mean = np.mean(red)
         return red_mean
     
-    def avgGreen(image):
+    def avgGreen(self, image):
         green = image[0:4000, 0:6000, 1]
-        green = numpy.reshape(green, -1)
-        green_mean = numpy.mean(green)
+        green = np.reshape(green, -1)
+        green_mean = np.mean(green)
         return green_mean
     
-    def avgBlue(image):
+    def avgBlue(self, image):
         blue = image [0:4000, 0:6000, 2]
-        blue = numpy.reshape(blue, -1)
-        blue_mean = numpy.mean(blue)
+        blue = np.reshape(blue, -1)
+        blue_mean = np.mean(blue)
         return blue_mean
         
-    def numBrownRed(image):
+    def numBrownRed(self, image):
         red = image[0:4000, 0:6000, 0]
-        red = numpy.reshape(red, -1)
-        num_brown_red, bin_edges = numpy.histogram(red, bins=1, range=(180, 250))
+        red = np.reshape(red, -1)
+        num_brown_red, bin_edges = np.histogram(red, bins=1, range=(180, 250))
         return num_brown_red[0]
     
-    def numBrownGreen(image):
+    def numBrownGreen(self, image):
         green = image[0:4000, 0:6000, 1]
-        green = numpy.reshape(green, -1)
-        num_brown_green, bin_edges = numpy.histogram(green, bins=1, range=(160, 200))
+        green = np.reshape(green, -1)
+        num_brown_green, bin_edges = np.histogram(green, bins=1, range=(160, 200))
         return num_brown_green[0]
     
-    def numBrownBlue(image):
+    def numBrownBlue(self, image):
         blue = image [0:4000, 0:6000, 2]
-        blue = numpy.reshape(blue, -1)
-        num_brown_blue, bin_edges = numpy.histogram(blue, bins=1, range=(150, 240))
+        blue = np.reshape(blue, -1)
+        num_brown_blue, bin_edges = np.histogram(blue, bins=1, range=(150, 240))
         return num_brown_blue[0]
     
-    def FdHuMoments(image):
+    def FdHuMoments(self, image):
         """
         Extracts Hu moments feature from an image
         Parameters
@@ -158,7 +169,7 @@ to be used by the machine learning class.
         feature = cv2.HuMoments(cv2.moments(image)).flatten()
         return feature
     
-    def FdHaralick(image):
+    def FdHaralick(self, image):
         import mahotas
         #
         #MIT License
@@ -184,7 +195,7 @@ to be used by the machine learning class.
         # return the result
         return haralick
     
-    def FdHistogram(image, mask=None, bins = 8):
+    def FdHistogram(self, image, mask=None, bins = 8):
         """
         Extracts color histogram feature from an image
         Parameters
@@ -210,7 +221,7 @@ to be used by the machine learning class.
         return hist.flatten()
     
     import numpy as np
-    def ImageProcessing(folder_name):
+    def ImageProcessing(self, folder_name):
         def allFilesInDir(dir_name, label):
             csvOut = []
             counter = 0
@@ -221,20 +232,20 @@ to be used by the machine learning class.
                     import matplotlib.pyplot as plt
                     plt.imshow(image, cmap='gray', vmin=0, vmax=1)
                     plt.show()
-                    gray_mean = avgGray(image)
+                    gray_mean = self.avgGray(image)
     
                     image = imread(os.path.join(root, file))
-                    red_mean = avgRed(image)
-                    green_mean = avgGreen(image)
-                    blue_mean = avgBlue(image)
-                    num_brown_red = numBrownRed(image)
-                    num_brown_green = numBrownGreen(image)
-                    num_brown_blue = numBrownBlue(image)
-                    advanced_features = getAdvancedFeatures(image)
+                    red_mean = self.avgRed(image)
+                    green_mean = self.avgGreen(image)
+                    blue_mean = self.avgBlue(image)
+                    num_brown_red = self.numBrownRed(image)
+                    num_brown_green = self.numBrownGreen(image)
+                    num_brown_blue = self.numBrownBlue(image)
+                    advanced_features = self.getAdvancedFeatures(image)
                     
                     image = cv2.imread(os.path.join(root, file))
-                    fv_hu_moments = FdHuMoments(image)
-                    fv_haralick = FdHaralick(image)
+                    fv_hu_moments = self.FdHuMoments(image)
+                    fv_haralick = self.FdHaralick(image)
     #                fv_histrogram = FdHistogram(image)
     
                     feature_vector = np.hstack([file, fv_hu_moments, fv_haralick, gray_mean, red_mean, green_mean, blue_mean, 
@@ -263,6 +274,7 @@ to be used by the machine learning class.
         obj.writerows(blighted_features)
         obj.writerows(healthy_features)
     
-    #Main
-    folder_name = 'images/'
-    ImageProcessing(folder_name)
+#Main
+folder_name = 'images/'
+processor = ImagePreprocessing()
+processor.ImageProcessing(folder_name)
