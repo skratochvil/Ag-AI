@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="stylesheet.css">
+    <head>
+ 	    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+ 	    <title>AI for Agriculture</title>
+	    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Styles/stylesheet.css') }}">
+    </head>
+    <body>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>
