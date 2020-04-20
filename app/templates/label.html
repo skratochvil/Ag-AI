@@ -8,14 +8,15 @@
 		<a href = "index.html" class = "button">Home</a>
     </div>
 
-    <img src="https://cornaistorage.s3.us-east-2.amazonaws.com/images/{{ picture }}" style="width:400px;height:400px;">
-
-    <p>{{ confidence }}</p>
-
-    <form action="" method="post">
-        <p>{{form.choice()}}</p>
-        <p>{{form.submit()}}</p>
-    </form>
+    <div class = "middle">
+        <br>
+        <img src="https://cornaistorage.s3.us-east-2.amazonaws.com/images/{{ picture }}" style="width:400px;height:350px;">
+        <p>{{ confidence }}</p>
+        <form action="" method="post">
+            <p>{{form.choice()}}</p>
+            <p>{{form.submit()}}</p>
+        </form>
+    </div>
     
 </body>
 </html>
