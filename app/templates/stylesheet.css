@@ -23,10 +23,13 @@
 }
 .middle{
 	font-family: sans-serif;
-	margin: auto;
-}
-.middleLabel{
-	text-align: center;	
+	text-align: center; 
+    width: 500px;
+    height: 550px;
+	position: absolute;
+    left: 50%;
+    top: 70%;
+    transform: translate(-50%,-50%);
 }
 .buttons{
 	margin-left:auto;
