@@ -12,6 +12,8 @@ from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
 import os
 import numpy as np
+import boto3
+from io import StringIO
 
 bootstrap = Bootstrap(app)
 
@@ -24,8 +26,11 @@ def getData():
     data : Pandas DataFrame
         The data that contains the features for each image.
     """
-    file_name = os.path.join(app.root_path, '', 'csvOut.csv')
-    data = pd.read_csv(file_name, index_col = 0, header = None)
+    s3 = boto3.client('s3')
+    obj = s3.get_object(Bucket = 'cornimagesbucket', Key = 'csvOut.csv')
+    body = csv_obj['Body']
+    csv_string = body.read().decode('utf-8')
+    data = pd.read_csv(StringIO(csv_string))
     return data.iloc[:, :-1]
 
 def createMLModel(data):
