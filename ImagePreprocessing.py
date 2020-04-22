@@ -230,8 +230,7 @@ to be used by the machine learning class.
     
                     image = imread(os.path.join(root, file), as_gray=True)
                     import matplotlib.pyplot as plt
-                    plt.imshow(image, cmap='gray', vmin=0, vmax=1)
-                    plt.show()
+            
                     gray_mean = self.avgGray(image)
     
                     image = imread(os.path.join(root, file))
@@ -248,8 +247,8 @@ to be used by the machine learning class.
                     fv_haralick = self.FdHaralick(image)
     #                fv_histrogram = FdHistogram(image)
     
-                    feature_vector = np.hstack([file, fv_hu_moments, fv_haralick, gray_mean, red_mean, green_mean, blue_mean, 
-                                                num_brown_red, num_brown_green, num_brown_blue, advanced_features[0], 
+                    feature_vector = np.hstack([file, fv_hu_moments[0], fv_haralick[0], fv_haralick[3], fv_haralick[7], fv_haralick[8], gray_mean, green_mean, 
+                                                num_brown_red, advanced_features[0], 
                                                 advanced_features[1],  advanced_features[2],  advanced_features[3],
                                                  advanced_features[4],  advanced_features[5],  advanced_features[6], label])
                     
@@ -259,22 +258,23 @@ to be used by the machine learning class.
             return csvOut
         
         #Please update these column labels if you add features in order to help with feature selection.
-        columnLabels = ('fileName','fvhu','fvhu2','fvhu3','fvhu4','fvhu5','fvhu6','fvhu7',
-                        'fvha1','fvha2','fvha3','fvha4','fvha5','fvha6','fvha7','fvha7',
-                        'fvha8','fvha9','fvha10','fvha11','fvha12',
-                        'gray_mean', 'red_mean', 'green_mean', 'blue_mean', 'num_brown_red', 'num_brown_green', 
-                        'num_brown_blue', 'numForegroundPxls', 'blightedHSV_pxls', 'blightedHSV_ratio', 
+        columnLabels = ('fileName','fvhu', 'fvha1', 'fvha4', 'fvha8','fvha9',
+                       'gray_mean',  'green_mean',  'num_brown_red', 'numForegroundPxls', 'blightedHSV_pxls', 'blightedHSV_ratio', 
                         'numRGB_blightedPxls', 'blightedRGBRatio', 'RGB_and_HSV_blighted', 'RGB_and_HSV_both_ratio', 'label')
         
         blighted_features = allFilesInDir('images/blighted', 'B')
         healthy_features = allFilesInDir('images/healthy', 'H')
         csvfile = open('csvOut.csv','w', newline = '')
         obj = csv.writer(csvfile)
-        obj.writerow(columnLabels)
+        #Uncomment to add column labels
+        #obj.writerow(columnLabels)
         obj.writerows(blighted_features)
         obj.writerows(healthy_features)
     
 #Main
-folder_name = 'images/'
+folder_name = '../images/'
+
+
+
 processor = ImagePreprocessing()
 processor.ImageProcessing(folder_name)
