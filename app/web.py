@@ -28,7 +28,7 @@ def getData():
     """
     s3 = boto3.client('s3')
     obj = s3.get_object(Bucket = 'cornimagesbucket', Key = 'csvOut.csv')
-    body = csv_obj['Body']
+    body = obj['Body']
     csv_string = body.read().decode('utf-8')
     data = pd.read_csv(StringIO(csv_string))
     return data.iloc[:, :-1]
