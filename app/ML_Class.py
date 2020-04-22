@@ -39,15 +39,17 @@ class ML_Model:
         ml_model : fitted machine learning classifier
             The machine learning model created using the training data.
         """
+        from imblearn.over_sampling import SMOTE
+        smote = SMOTE()
         self.ml_classifier = ml_classifier
         self.preprocess = preprocess
         
         self.X = train_data.iloc[:,: -1].values
         self.y = train_data.iloc[:, -1].values
-
+    
         self.X = self.preprocess.fit_transform(self.X)
-        
-        self.ml_model = ml_classifier.fit(self.X, self.y)
+        self.X_smote, self.y_smote = smote.fit_resample(self.X, self.y)
+        self.ml_model = ml_classifier.fit(self.X_smote, self.y_smote)
         
     def GetKnownPredictions(self, new_data):
         """
@@ -106,7 +108,7 @@ class ML_Model:
             The 10 accuracy values using 10-fold cross-validation.
         """
         from sklearn.model_selection import cross_val_score
-        accuracies = cross_val_score(self.ml_classifier, self.X, self.y, cv=3)    
+        accuracies = cross_val_score(self.ml_classifier, self.X_smote, self.y_smote, cv=3)    
         return accuracies
 
     def infoForProgress(self, train_img_names):
