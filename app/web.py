@@ -27,11 +27,13 @@ def getData():
         The data that contains the features for each image.
     """
     s3 = boto3.client('s3')
-    obj = s3.get_object(Bucket = 'cornimagesbucket', Key = 'csvOut.csv')
-    body = obj['Body']
-    csv_string = body.read().decode('utf-8')
-    data = pd.read_csv(StringIO(csv_string))
-    return data.iloc[:, :-1]
+    path = 's3://cornimagesbucket/csvOut.csv'
+
+    data = pd.read_csv(path, index_col = 0, header = None)
+    data.columns = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16']
+
+    data_mod = data.astype({'8': 'int32','9': 'int32','10': 'int32','12': 'int32','14': 'int32'})
+    return data_mod.iloc[:, :-1]
 
 def createMLModel(data):
     """
