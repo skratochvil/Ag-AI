@@ -1,0 +1,161 @@
+\hypertarget{classapp_1_1_m_l___class_1_1_active___m_l___model}{}\doxysection{app.\+M\+L\+\_\+\+Class.\+Active\+\_\+\+M\+L\+\_\+\+Model Class Reference}
+\label{classapp_1_1_m_l___class_1_1_active___m_l___model}\index{app.ML\_Class.Active\_ML\_Model@{app.ML\_Class.Active\_ML\_Model}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classapp_1_1_m_l___class_1_1_active___m_l___model_ae718a77ae395beaa10d26883b29ce69b}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, data, ml\+\_\+classifier, preprocess, n\+\_\+samples=10)
+\item 
+def \mbox{\hyperlink{classapp_1_1_m_l___class_1_1_active___m_l___model_a9ef8dc2cee593e3a2e9aa015f2fdd0c0}{Train}} (self, sample)
+\item 
+def \mbox{\hyperlink{classapp_1_1_m_l___class_1_1_active___m_l___model_acd04974cd986b1f88f4feed0bc7a5251}{Continue}} (self, sampling\+\_\+method, n\+\_\+samples=5)
+\item 
+def \mbox{\hyperlink{classapp_1_1_m_l___class_1_1_active___m_l___model_add26c4648578ae92e0fd662a34d6db2a}{info\+For\+Progress}} (self)
+\item 
+def \mbox{\hyperlink{classapp_1_1_m_l___class_1_1_active___m_l___model_a770a994e6fb5c06a129f4983bcc3fbfa}{info\+For\+Results}} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classapp_1_1_m_l___class_1_1_active___m_l___model_ab358e3edd6f802447b14e227515b900b}\label{classapp_1_1_m_l___class_1_1_active___m_l___model_ab358e3edd6f802447b14e227515b900b}} 
+{\bfseries sample}
+\item 
+\mbox{\Hypertarget{classapp_1_1_m_l___class_1_1_active___m_l___model_ab4b0ba870b71bd7d2e0cab8c0a954971}\label{classapp_1_1_m_l___class_1_1_active___m_l___model_ab4b0ba870b71bd7d2e0cab8c0a954971}} 
+{\bfseries test}
+\item 
+\mbox{\Hypertarget{classapp_1_1_m_l___class_1_1_active___m_l___model_a41e6459e2d6140e3904fd41c590fe35b}\label{classapp_1_1_m_l___class_1_1_active___m_l___model_a41e6459e2d6140e3904fd41c590fe35b}} 
+{\bfseries train}
+\item 
+\mbox{\Hypertarget{classapp_1_1_m_l___class_1_1_active___m_l___model_a5b31f56b1a396be6c20edd0b847dcb40}\label{classapp_1_1_m_l___class_1_1_active___m_l___model_a5b31f56b1a396be6c20edd0b847dcb40}} 
+{\bfseries ml\+\_\+classifier}
+\item 
+\mbox{\Hypertarget{classapp_1_1_m_l___class_1_1_active___m_l___model_a0a4cba64d899eb9d33e65380ac691114}\label{classapp_1_1_m_l___class_1_1_active___m_l___model_a0a4cba64d899eb9d33e65380ac691114}} 
+{\bfseries preprocess}
+\item 
+\mbox{\Hypertarget{classapp_1_1_m_l___class_1_1_active___m_l___model_a36d326645294a0347963147cfa0f691d}\label{classapp_1_1_m_l___class_1_1_active___m_l___model_a36d326645294a0347963147cfa0f691d}} 
+{\bfseries ml\+\_\+model}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}This class creates an active learning model based on the data sent, 
+data preprocessing, and type of ml classifier.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classapp_1_1_m_l___class_1_1_active___m_l___model_ae718a77ae395beaa10d26883b29ce69b}\label{classapp_1_1_m_l___class_1_1_active___m_l___model_ae718a77ae395beaa10d26883b29ce69b}} 
+\index{app.ML\_Class.Active\_ML\_Model@{app.ML\_Class.Active\_ML\_Model}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!app.ML\_Class.Active\_ML\_Model@{app.ML\_Class.Active\_ML\_Model}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def app.\+M\+L\+\_\+\+Class.\+Active\+\_\+\+M\+L\+\_\+\+Model.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data,  }\item[{}]{ml\+\_\+classifier,  }\item[{}]{preprocess,  }\item[{}]{n\+\_\+samples = {\ttfamily 10} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This function controls the initial creation of the active learning model.
+
+Parameters
+----------
+data : pandas DataFrame
+    The data the active learning model will be built on.
+ml_classifier : classifier object
+    The classifier to be used to create the machine learning model.
+preprocess : Python Function
+    The function used to preprocess the data before model creation.
+n_samples : int
+    The number of random samples to be used in the initial model creation.
+    
+Attributes
+-------
+ml_classifier : classifier object
+    The classifier to be used to create the active learning model.
+preprocess : Python Function
+    The function used to preprocess the data before model creation.
+test : pandas DataFrame
+    The training set.
+train : pandas DataFrame
+    The train set.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classapp_1_1_m_l___class_1_1_active___m_l___model_acd04974cd986b1f88f4feed0bc7a5251}\label{classapp_1_1_m_l___class_1_1_active___m_l___model_acd04974cd986b1f88f4feed0bc7a5251}} 
+\index{app.ML\_Class.Active\_ML\_Model@{app.ML\_Class.Active\_ML\_Model}!Continue@{Continue}}
+\index{Continue@{Continue}!app.ML\_Class.Active\_ML\_Model@{app.ML\_Class.Active\_ML\_Model}}
+\doxysubsubsection{\texorpdfstring{Continue()}{Continue()}}
+{\footnotesize\ttfamily def app.\+M\+L\+\_\+\+Class.\+Active\+\_\+\+M\+L\+\_\+\+Model.\+Continue (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{sampling\+\_\+method,  }\item[{}]{n\+\_\+samples = {\ttfamily 5} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This function continues the active learning model to the next step.
+
+Parameters
+----------
+sampling_method : Python Function
+    Determines the next set of samples to send to user.
+n_samples : int
+    The number of samplest that should be added the the train set.
+    
+Attributes Updated
+-------
+ml_classifier : classifier object
+    The classifier to be used to create the active learning model.
+test : pandas DataFrame
+    The training set.
+train : pandas DataFrame
+    The train set.
+\end{DoxyVerb}
+ \mbox{\Hypertarget{classapp_1_1_m_l___class_1_1_active___m_l___model_add26c4648578ae92e0fd662a34d6db2a}\label{classapp_1_1_m_l___class_1_1_active___m_l___model_add26c4648578ae92e0fd662a34d6db2a}} 
+\index{app.ML\_Class.Active\_ML\_Model@{app.ML\_Class.Active\_ML\_Model}!infoForProgress@{infoForProgress}}
+\index{infoForProgress@{infoForProgress}!app.ML\_Class.Active\_ML\_Model@{app.ML\_Class.Active\_ML\_Model}}
+\doxysubsubsection{\texorpdfstring{infoForProgress()}{infoForProgress()}}
+{\footnotesize\ttfamily def app.\+M\+L\+\_\+\+Class.\+Active\+\_\+\+M\+L\+\_\+\+Model.\+info\+For\+Progress (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This function returns the information nessessary to display the progress of the active learning model.
+    
+Returns
+-------
+correct_pic : list
+    List of images that were predicted correctly.
+    
+incorrect_pic : list
+    List of images that were predicted incorrectly.
+\end{DoxyVerb}
+ \mbox{\Hypertarget{classapp_1_1_m_l___class_1_1_active___m_l___model_a770a994e6fb5c06a129f4983bcc3fbfa}\label{classapp_1_1_m_l___class_1_1_active___m_l___model_a770a994e6fb5c06a129f4983bcc3fbfa}} 
+\index{app.ML\_Class.Active\_ML\_Model@{app.ML\_Class.Active\_ML\_Model}!infoForResults@{infoForResults}}
+\index{infoForResults@{infoForResults}!app.ML\_Class.Active\_ML\_Model@{app.ML\_Class.Active\_ML\_Model}}
+\doxysubsubsection{\texorpdfstring{infoForResults()}{infoForResults()}}
+{\footnotesize\ttfamily def app.\+M\+L\+\_\+\+Class.\+Active\+\_\+\+M\+L\+\_\+\+Model.\+info\+For\+Results (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This function returns the information nessessary to display the final results of the active learning model.
+    
+Returns
+-------
+correct_pic : list
+    List of images that were predicted correctly.
+    
+incorrect_pic : list
+    List of images that were predicted incorrectly.
+    
+health_pic : list
+    List of images in the test set that are predicted to being healthy.
+
+blight_pic : list
+    List of images in the test set that are predicted to being blighted.
+\end{DoxyVerb}
+ \mbox{\Hypertarget{classapp_1_1_m_l___class_1_1_active___m_l___model_a9ef8dc2cee593e3a2e9aa015f2fdd0c0}\label{classapp_1_1_m_l___class_1_1_active___m_l___model_a9ef8dc2cee593e3a2e9aa015f2fdd0c0}} 
+\index{app.ML\_Class.Active\_ML\_Model@{app.ML\_Class.Active\_ML\_Model}!Train@{Train}}
+\index{Train@{Train}!app.ML\_Class.Active\_ML\_Model@{app.ML\_Class.Active\_ML\_Model}}
+\doxysubsubsection{\texorpdfstring{Train()}{Train()}}
+{\footnotesize\ttfamily def app.\+M\+L\+\_\+\+Class.\+Active\+\_\+\+M\+L\+\_\+\+Model.\+Train (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{sample }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This function trains the innitial ml_model
+Parameters
+----------
+train : pandas DataFrame
+    The training set with labels
+
+Attributes Added
+----------------
+ml_model : fitted machine learning classifier
+    The machine learning model created using the training data.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/M\+L\+\_\+\+Class.\+py\end{DoxyCompactItemize}
