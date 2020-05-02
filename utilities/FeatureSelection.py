@@ -8,10 +8,10 @@ from sklearn.feature_selection import chi2
 from sklearn.ensemble import ExtraTreesClassifier
 import matplotlib.pyplot as plt
 
-# =============================================================================
+"""@package FeatureSelection
 # ExtraTreesClassifier is an ensemble learning method fundamentally based on decision trees. 
 # ExtraTreesClassifier, like RandomForest, randomizes certain decisions and subsets of data. 
-# =============================================================================
+"""
 def extraTreesClassifier(fileIn):
     with open(fileIn, 'r') as f:
         data = pd.read_csv(fileIn)
