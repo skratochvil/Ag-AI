@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<body>
+	<!--This entire div could potentially be made into a re-usable chunk later-->
+	<div class = "heading">
+		<h1> AI for Agriculture</h1>
+		<a href = "index.html" class = "button">Home</a>
+	</div>
+	<!--just called this div "middle" because it's the middle of the screen. Shows up on other pages-->
+	<div class = "middle">
+		<h2>Welcome</h2>
+		<p>Agriculture for AI is an experiment with the goal of improving farmers' trust in AI.
+		We hope to accomplish this using an interactive machine learning program, which you
+		can test by hitting the start button below!</p>
+		<a href = "label.html" class = "button">Start</a>
+	</div>
+	<div class = "footer">
+		<a href = "faq.html">About Us</a><br>
+		Any additional legal info here
+	</div>
+</body>
+</html>
+{% endblock %}

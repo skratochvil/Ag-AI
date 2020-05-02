@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<body>
+	<!--This entire div could potentially be made into a re-usable chunk later-->
+	<div class = "heading">
+		<h1> AI for Agriculture</h1>
+		<a href = "index.html" class="button">Home</a>
+		<a href = "label.html" class="button">Label</a>
+	</div>
+	
+	<div class = "middle">
+		<br><th>Correct: {{correctNum}}</th>
+		<br>
+  		<th><div class="Frame">
+				{%for i in correct%}
+					<img src="https://cornimagesbucket.s3.us-east-2.amazonaws.com/images_compressed/{{i}}" style="width:50px;height:50px;" >
+				{%endfor%}
+		</div></th>
+		<br><th>Incorrect: {{incorrectNum}}</th>
+		<br>
+  		<th><div class="Frame">
+				{%for i in incorrect%}
+					<img src="https://https://cornimagesbucket.s3.us-east-2.amazonaws.com/images_compressed/{{i}}" style="width:50px;height:50px;" >
+				{%endfor%}
+		</div></th>
+		<a href = "final.html" class="button">See Final Results</a>
+	</div>
+	
+</body>
+</html>
+{% endblock %}

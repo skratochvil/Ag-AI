@@ -1,0 +1,10 @@
+[X-GNOME-Metatheme]
+Name=Breath
+Type=X-GNOME-Metatheme
+Comment=Breath gtk-theme
+Encoding=UTF-8
+GtkTheme=Breath
+MetacityTheme=Breeze
+IconTheme=Breath
+CursorTheme=Breeze
+CursorSize=24
