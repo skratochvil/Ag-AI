@@ -1,5 +1,7 @@
 # -*- coding:utf-8 -*-
-
+"""@package web
+This method is responsible for the inner workings of the different web pages in this application.
+"""
 from flask import Flask  
 from flask import render_template, flash, redirect, url_for, session
 from app import app
@@ -172,11 +174,17 @@ def prepairResults(form):
 @app.route("/", methods=['GET']) 
 @app.route("/index.html",methods=['GET'])
 def home():
+    """
+    Operates the root (/) and index(index.html) web pages.
+    """
     session.pop('model', None)
     return render_template('index.html')
 
 @app.route("/label.html",methods=['GET', 'Post'])   
 def label():
+    """
+    Operates the label(label.html) web page.
+    """
     form = LabelForm()
     if 'model' not in session:#Start
         return initializeAL(form, .7)
@@ -195,10 +203,16 @@ def label():
 
 @app.route("/intermediate.html",methods=['GET'])   
 def intermediate():
+    """
+    Operates the intermediate(intermediate.html) web page.
+    """
     return render_template('intermediate.html')
 
 @app.route("/final.html",methods=['GET'])   
 def Final():
+    """
+    Operates the final(final.html) web page.
+    """
     return render_template('final.html')
 #1st arg must be set to 0.0.0.0 for external server
 #why port 666? 

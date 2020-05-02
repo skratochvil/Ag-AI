@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Sat Feb  8 11:20:09 2020
-@author: Donovan
+"""@package ImagePreprocessing
+This module is responsible for turning pictures into features that are usable for machine learning modules
 """
 import cv2
 #conda install -c conda-forge opencv=3.4.1
@@ -18,12 +17,15 @@ from skimage.color import rgb2hsv
 #BSD 3-Clause
 
 class ImagePreprocessing:
-    """@package ImagePreprocessing
+    """
 This class extracts a number of features from the images and saves them in a CSV
 to be used by the machine learning class.
 
 """
     def __init__(self):
+        """
+        Constructor function that handles importing all essential libraries.
+        """
         import cv2
         #conda install -c conda-forge opencv=3.4.1
         #3-Clause BSD License
@@ -109,41 +111,139 @@ to be used by the machine learning class.
         return returnValues
     
     def avgGray(self, image):
+        """
+        Returns the average darkness (gray) of the image.
+
+        Parameters
+        ----------
+        image : Image
+            The image to process.
+
+        Returns
+        -------
+        gray_mean : double
+            The average gray of the image.
+
+        """
         grayscaleArray = np.reshape(image, -1)
         gray_mean = np.mean(grayscaleArray)
         return gray_mean
     
     def avgRed(self, image):
+        """
+        Returns the average red of the image.
+
+        Parameters
+        ----------
+        image : Image
+            The image to process.
+
+        Returns
+        -------
+        red_mean : double
+            The average red of the image.
+
+        """
         red = image[0:4000, 0:6000, 0]
         red = np.reshape(red, -1)
         red_mean = np.mean(red)
         return red_mean
     
     def avgGreen(self, image):
+        """
+        Returns the average green of the image.
+
+        Parameters
+        ----------
+        image : Image
+            The image to process.
+
+        Returns
+        -------
+        green_mean : double
+            The average green of the image.
+
+        """
         green = image[0:4000, 0:6000, 1]
         green = np.reshape(green, -1)
         green_mean = np.mean(green)
         return green_mean
     
     def avgBlue(self, image):
+        """
+        Returns the average blue of the image.
+
+        Parameters
+        ----------
+        image : Image
+            The image to process.
+
+        Returns
+        -------
+        blue_mean : double
+            The average blue of the image.
+
+        """        
         blue = image [0:4000, 0:6000, 2]
         blue = np.reshape(blue, -1)
         blue_mean = np.mean(blue)
         return blue_mean
         
     def numBrownRed(self, image):
+        """
+        Returns the number of pixels that are red but in the range of brown.
+
+        Parameters
+        ----------
+        image : Image
+            The image to process.
+
+        Returns
+        -------
+        num_brown_red : double
+            The number of pixels that are red but in the range of brown.
+
+        """
         red = image[0:4000, 0:6000, 0]
         red = np.reshape(red, -1)
         num_brown_red, bin_edges = np.histogram(red, bins=1, range=(180, 250))
         return num_brown_red[0]
     
     def numBrownGreen(self, image):
+        """
+        Returns the number of pixels that are green but in the range of brown.
+
+        Parameters
+        ----------
+        image : Image
+            The image to process.
+
+        Returns
+        -------
+        num_brown_green : double
+            The number of pixels that are green but in the range of brown.
+
+        """        
         green = image[0:4000, 0:6000, 1]
         green = np.reshape(green, -1)
         num_brown_green, bin_edges = np.histogram(green, bins=1, range=(160, 200))
         return num_brown_green[0]
     
     def numBrownBlue(self, image):
+        """
+        Returns the number of pixels that are blue but in the range of brown.
+
+        Parameters
+        ----------
+        image : Image
+            The image to process.
+
+        Returns
+        -------
+        num_brown_red : double
+            The number of pixels that are blue but in the range of brown.
+
+        """
         blue = image [0:4000, 0:6000, 2]
         blue = np.reshape(blue, -1)
         num_brown_blue, bin_edges = np.histogram(blue, bins=1, range=(150, 240))
@@ -222,7 +322,33 @@ to be used by the machine learning class.
     
     import numpy as np
     def ImageProcessing(self, folder_name):
+        """
+        Converts the blighted and healthy images into usable features and saves these features to a csv file.
+    
+        Parameters
+        ----------
+        folder_name : string
+            name of the folder that contains the images.
+            
+        """
         def allFilesInDir(dir_name, label):
+            """
+            Converts all the images in the directory into usable features and saves these features to a csv file.
+        
+            Parameters
+            ----------
+            dir_name : string
+                name of the directory that contains the images.
+                
+            label : string
+                What that image represents.
+                
+            Returns
+            -------
+            csvOut : list
+                2d list that contains all the features of all pictures in the directory.
+                
+            """
             csvOut = []
             counter = 0
             for root, dirs, files in os.walk(os.path.abspath(dir_name)):
