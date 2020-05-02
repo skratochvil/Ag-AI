@@ -10,7 +10,7 @@
 
   .bg-image {
     background-image: url(https://miro.medium.com/max/1400/1*LhaMBgHAh9lAOWo4KQuRPA.jpeg);
-    background-size: cover;
+    background-size: auto;
     background-position: center;
     background-repeat: no-repeat;
   }
@@ -30,4 +30,3 @@
     position: relative;
     margin-bottom: 1rem;
   }
-
