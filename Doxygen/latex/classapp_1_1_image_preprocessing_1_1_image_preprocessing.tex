@@ -1,0 +1,293 @@
+\hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing}{}\doxysection{app.\+Image\+Preprocessing.\+Image\+Preprocessing Class Reference}
+\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing}\index{app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a8835e59d3872387d4969b44f972f95eb}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\item 
+def \mbox{\hyperlink{classapp_1_1_image_preprocessing_1_1_image_preprocessing_ab98f7594a1308bade1a7fa8f7d80039b}{get\+Advanced\+Features}} (self, image\+In)
+\item 
+def \mbox{\hyperlink{classapp_1_1_image_preprocessing_1_1_image_preprocessing_ad1f4f91d36c2ab92600dcd3e73a2a6bd}{avg\+Gray}} (self, image)
+\item 
+def \mbox{\hyperlink{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a98891c083a5d04e71caacd32c401840b}{avg\+Red}} (self, image)
+\item 
+def \mbox{\hyperlink{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a33cafdd0f83657dcea004adab165fe50}{avg\+Green}} (self, image)
+\item 
+def \mbox{\hyperlink{classapp_1_1_image_preprocessing_1_1_image_preprocessing_afb663837f63ce264cb0127c9c973ad81}{avg\+Blue}} (self, image)
+\item 
+def \mbox{\hyperlink{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a14d9ec96f8c9b93eefda7661bcd722f5}{num\+Brown\+Red}} (self, image)
+\item 
+def \mbox{\hyperlink{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a3ce00c0a7db419907128807564c322ba}{num\+Brown\+Green}} (self, image)
+\item 
+def \mbox{\hyperlink{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a139af65498e908a75f8d66cfaa2af972}{num\+Brown\+Blue}} (self, image)
+\item 
+def \mbox{\hyperlink{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a6f2a9757860362b249379a3d160f4eb6}{Fd\+Hu\+Moments}} (self, image)
+\item 
+\mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_abfe7b6edd37faea0b52e3a59d3ed883a}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_abfe7b6edd37faea0b52e3a59d3ed883a}} 
+def {\bfseries Fd\+Haralick} (self, image)
+\item 
+def \mbox{\hyperlink{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a171abf39fc75f099368781ec0edc3f09}{Fd\+Histogram}} (self, image, mask=None, bins=8)
+\item 
+def \mbox{\hyperlink{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a0d9e5ff89229af43d0c5845690bad5d0}{Image\+Processing}} (self, folder\+\_\+name)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries feature\+\_\+vector}
+\item 
+tuple {\bfseries column\+Labels}
+\item 
+\mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_acfdfbff9c81cc8052554e75a39824364}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_acfdfbff9c81cc8052554e75a39824364}} 
+{\bfseries blighted\+\_\+features} = all\+Files\+In\+Dir(\textquotesingle{}images/blighted\textquotesingle{}, \textquotesingle{}B\textquotesingle{})
+\item 
+\mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a9dab315651e0870c821514ccccbdd789}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a9dab315651e0870c821514ccccbdd789}} 
+{\bfseries healthy\+\_\+features} = all\+Files\+In\+Dir(\textquotesingle{}images/healthy\textquotesingle{}, \textquotesingle{}H\textquotesingle{})
+\item 
+\mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_ad7f69ebed358776804936a3531d7483d}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_ad7f69ebed358776804936a3531d7483d}} 
+{\bfseries csvfile} = open(\textquotesingle{}csv\+Out.\+csv\textquotesingle{},\textquotesingle{}w\textquotesingle{}, newline = \textquotesingle{}\textquotesingle{})
+\item 
+\mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a4e163145a0696f9aad65eedd98ddd1f2}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a4e163145a0696f9aad65eedd98ddd1f2}} 
+{\bfseries obj} = csv.\+writer(csvfile)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}This class extracts a number of features from the images and saves them in a CSV
+to be used by the machine learning class.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a8835e59d3872387d4969b44f972f95eb}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a8835e59d3872387d4969b44f972f95eb}} 
+\index{app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def app.\+Image\+Preprocessing.\+Image\+Preprocessing.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Constructor function that handles importing all essential libraries.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_afb663837f63ce264cb0127c9c973ad81}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_afb663837f63ce264cb0127c9c973ad81}} 
+\index{app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}!avgBlue@{avgBlue}}
+\index{avgBlue@{avgBlue}!app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}}
+\doxysubsubsection{\texorpdfstring{avgBlue()}{avgBlue()}}
+{\footnotesize\ttfamily def app.\+Image\+Preprocessing.\+Image\+Preprocessing.\+avg\+Blue (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{image }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the average blue of the image.
+
+Parameters
+----------
+image : Image
+    The image to process.
+
+Returns
+-------
+blue_mean : double
+    The average blue of the image.\end{DoxyVerb}
+ \mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_ad1f4f91d36c2ab92600dcd3e73a2a6bd}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_ad1f4f91d36c2ab92600dcd3e73a2a6bd}} 
+\index{app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}!avgGray@{avgGray}}
+\index{avgGray@{avgGray}!app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}}
+\doxysubsubsection{\texorpdfstring{avgGray()}{avgGray()}}
+{\footnotesize\ttfamily def app.\+Image\+Preprocessing.\+Image\+Preprocessing.\+avg\+Gray (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{image }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the average darkness (gray) of the image.
+
+Parameters
+----------
+image : Image
+    The image to process.
+
+Returns
+-------
+gray_mean : double
+    The average gray of the image.\end{DoxyVerb}
+ \mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a33cafdd0f83657dcea004adab165fe50}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a33cafdd0f83657dcea004adab165fe50}} 
+\index{app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}!avgGreen@{avgGreen}}
+\index{avgGreen@{avgGreen}!app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}}
+\doxysubsubsection{\texorpdfstring{avgGreen()}{avgGreen()}}
+{\footnotesize\ttfamily def app.\+Image\+Preprocessing.\+Image\+Preprocessing.\+avg\+Green (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{image }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the average green of the image.
+
+Parameters
+----------
+image : Image
+    The image to process.
+
+Returns
+-------
+green_mean : double
+    The average green of the image.\end{DoxyVerb}
+ \mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a98891c083a5d04e71caacd32c401840b}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a98891c083a5d04e71caacd32c401840b}} 
+\index{app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}!avgRed@{avgRed}}
+\index{avgRed@{avgRed}!app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}}
+\doxysubsubsection{\texorpdfstring{avgRed()}{avgRed()}}
+{\footnotesize\ttfamily def app.\+Image\+Preprocessing.\+Image\+Preprocessing.\+avg\+Red (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{image }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the average red of the image.
+
+Parameters
+----------
+image : Image
+    The image to process.
+
+Returns
+-------
+red_mean : double
+    The average red of the image.\end{DoxyVerb}
+ \mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a171abf39fc75f099368781ec0edc3f09}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a171abf39fc75f099368781ec0edc3f09}} 
+\index{app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}!FdHistogram@{FdHistogram}}
+\index{FdHistogram@{FdHistogram}!app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}}
+\doxysubsubsection{\texorpdfstring{FdHistogram()}{FdHistogram()}}
+{\footnotesize\ttfamily def app.\+Image\+Preprocessing.\+Image\+Preprocessing.\+Fd\+Histogram (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{image,  }\item[{}]{mask = {\ttfamily None},  }\item[{}]{bins = {\ttfamily 8} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Extracts color histogram feature from an image
+Parameters
+----------
+
+image : imread
+    The image used for feature extraction
+Returns
+-------
+Feature : Float Array
+    The color histogram in the image.
+Reference
+---------
+https://gogul.dev/software/image-classification-python
+\end{DoxyVerb}
+ \mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a6f2a9757860362b249379a3d160f4eb6}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a6f2a9757860362b249379a3d160f4eb6}} 
+\index{app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}!FdHuMoments@{FdHuMoments}}
+\index{FdHuMoments@{FdHuMoments}!app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}}
+\doxysubsubsection{\texorpdfstring{FdHuMoments()}{FdHuMoments()}}
+{\footnotesize\ttfamily def app.\+Image\+Preprocessing.\+Image\+Preprocessing.\+Fd\+Hu\+Moments (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{image }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Extracts Hu moments feature from an image
+Parameters
+----------
+
+image : imread
+    The image used for feature extraction
+Returns
+-------
+Feature : Float Array
+    The Hu moments in the image.
+Reference
+---------
+https://gogul.dev/software/image-classification-python
+\end{DoxyVerb}
+ \mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_ab98f7594a1308bade1a7fa8f7d80039b}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_ab98f7594a1308bade1a7fa8f7d80039b}} 
+\index{app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}!getAdvancedFeatures@{getAdvancedFeatures}}
+\index{getAdvancedFeatures@{getAdvancedFeatures}!app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}}
+\doxysubsubsection{\texorpdfstring{getAdvancedFeatures()}{getAdvancedFeatures()}}
+{\footnotesize\ttfamily def app.\+Image\+Preprocessing.\+Image\+Preprocessing.\+get\+Advanced\+Features (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{image\+In }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns a tuple of advanced features.
+
+Parameters
+----------
+imageIn : Image
+    The image to process.
+
+Returns
+-------
+returnValues : tuple
+    numbers.\end{DoxyVerb}
+ \mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a0d9e5ff89229af43d0c5845690bad5d0}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a0d9e5ff89229af43d0c5845690bad5d0}} 
+\index{app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}!ImageProcessing@{ImageProcessing}}
+\index{ImageProcessing@{ImageProcessing}!app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}}
+\doxysubsubsection{\texorpdfstring{ImageProcessing()}{ImageProcessing()}}
+{\footnotesize\ttfamily def app.\+Image\+Preprocessing.\+Image\+Preprocessing.\+Image\+Processing (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{folder\+\_\+name }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Converts the blighted and healthy images into usable features and saves these features to a csv file.
+    
+Parameters
+----------
+folder_name : string
+    name of the folder that contains the images.\end{DoxyVerb}
+ \mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a139af65498e908a75f8d66cfaa2af972}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a139af65498e908a75f8d66cfaa2af972}} 
+\index{app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}!numBrownBlue@{numBrownBlue}}
+\index{numBrownBlue@{numBrownBlue}!app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}}
+\doxysubsubsection{\texorpdfstring{numBrownBlue()}{numBrownBlue()}}
+{\footnotesize\ttfamily def app.\+Image\+Preprocessing.\+Image\+Preprocessing.\+num\+Brown\+Blue (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{image }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the number of pixels that are blue but in the range of brown.
+
+Parameters
+----------
+image : Image
+    The image to process.
+
+Returns
+-------
+num_brown_red : double
+    The number of pixels that are blue but in the range of brown.\end{DoxyVerb}
+ \mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a3ce00c0a7db419907128807564c322ba}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a3ce00c0a7db419907128807564c322ba}} 
+\index{app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}!numBrownGreen@{numBrownGreen}}
+\index{numBrownGreen@{numBrownGreen}!app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}}
+\doxysubsubsection{\texorpdfstring{numBrownGreen()}{numBrownGreen()}}
+{\footnotesize\ttfamily def app.\+Image\+Preprocessing.\+Image\+Preprocessing.\+num\+Brown\+Green (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{image }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the number of pixels that are green but in the range of brown.
+
+Parameters
+----------
+image : Image
+    The image to process.
+
+Returns
+-------
+num_brown_green : double
+    The number of pixels that are green but in the range of brown.\end{DoxyVerb}
+ \mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a14d9ec96f8c9b93eefda7661bcd722f5}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a14d9ec96f8c9b93eefda7661bcd722f5}} 
+\index{app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}!numBrownRed@{numBrownRed}}
+\index{numBrownRed@{numBrownRed}!app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}}
+\doxysubsubsection{\texorpdfstring{numBrownRed()}{numBrownRed()}}
+{\footnotesize\ttfamily def app.\+Image\+Preprocessing.\+Image\+Preprocessing.\+num\+Brown\+Red (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{image }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the number of pixels that are red but in the range of brown.
+
+Parameters
+----------
+image : Image
+    The image to process.
+
+Returns
+-------
+num_brown_red : double
+    The number of pixels that are red but in the range of brown.\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a2ed270bbea0ce2b962fa33956e13fae0}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a2ed270bbea0ce2b962fa33956e13fae0}} 
+\index{app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}!columnLabels@{columnLabels}}
+\index{columnLabels@{columnLabels}!app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}}
+\doxysubsubsection{\texorpdfstring{columnLabels}{columnLabels}}
+{\footnotesize\ttfamily tuple app.\+Image\+Preprocessing.\+Image\+Preprocessing.\+column\+Labels\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=  (\textcolor{stringliteral}{'fileName'},\textcolor{stringliteral}{'fvhu'}, \textcolor{stringliteral}{'fvha1'}, \textcolor{stringliteral}{'fvha4'}, \textcolor{stringliteral}{'fvha8'},\textcolor{stringliteral}{'fvha9'},}
+\DoxyCodeLine{                       \textcolor{stringliteral}{'gray\_mean'},  \textcolor{stringliteral}{'green\_mean'},  \textcolor{stringliteral}{'num\_brown\_red'}, \textcolor{stringliteral}{'numForegroundPxls'}, \textcolor{stringliteral}{'blightedHSV\_pxls'}, \textcolor{stringliteral}{'blightedHSV\_ratio'}, }
+\DoxyCodeLine{                        \textcolor{stringliteral}{'numRGB\_blightedPxls'}, \textcolor{stringliteral}{'blightedRGBRatio'}, \textcolor{stringliteral}{'RGB\_and\_HSV\_blighted'}, \textcolor{stringliteral}{'RGB\_and\_HSV\_both\_ratio'}, \textcolor{stringliteral}{'label'})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a29686405c074c74ebe37ac42673f3e73}\label{classapp_1_1_image_preprocessing_1_1_image_preprocessing_a29686405c074c74ebe37ac42673f3e73}} 
+\index{app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}!feature\_vector@{feature\_vector}}
+\index{feature\_vector@{feature\_vector}!app.ImagePreprocessing.ImagePreprocessing@{app.ImagePreprocessing.ImagePreprocessing}}
+\doxysubsubsection{\texorpdfstring{feature\_vector}{feature\_vector}}
+{\footnotesize\ttfamily app.\+Image\+Preprocessing.\+Image\+Preprocessing.\+feature\+\_\+vector\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=  np.hstack([file, fv\_hu\_moments[0], fv\_haralick[0], fv\_haralick[3], fv\_haralick[7], fv\_haralick[8], gray\_mean, green\_mean, }
+\DoxyCodeLine{                                                num\_brown\_red, advanced\_features[0], }
+\DoxyCodeLine{                                                advanced\_features[1],  advanced\_features[2],  advanced\_features[3],}
+\DoxyCodeLine{                                                 advanced\_features[4],  advanced\_features[5],  advanced\_features[6], label])}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/Image\+Preprocessing.\+py\end{DoxyCompactItemize}
