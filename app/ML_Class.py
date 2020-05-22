@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Feb  6 12:54:45 2020
-@author: Donovan
+"""@package ML_Class
+This module contains machine learning and active learning objects.
 """
 import json
 from json import JSONEncoder
@@ -110,6 +109,22 @@ class ML_Model:
         return accuracies
 
     def infoForProgress(self, train_img_names):
+        """
+        This function returns the information nessessary to display the progress of the active learning model.
+        
+        Parameters
+        ----------
+        train_img_names : list
+            list of image names in the training set.
+            
+        Returns
+        -------
+        correct_pic : list
+            List of images that were predicted correctly.
+            
+        incorrect_pic : list
+            List of images that were predicted incorrectly.
+        """
         y_actual = self.y
         y_pic = train_img_names
         y_pred = self.ml_model.predict(self.X)
@@ -124,6 +139,30 @@ class ML_Model:
         return correct_pic, incorrect_pic
     
     def infoForResults(self, train_img_names, test):
+        """
+        This function returns the information nessessary to display the final results of the active learning model.
+        
+        Parameters
+        ----------
+        train_img_names : list
+            list of image names in the training set.
+        test : pandas dataframe
+            The test set of the machine learning model.
+            
+        Returns
+        -------
+        correct_pic : list
+            List of images that were predicted correctly.
+            
+        incorrect_pic : list
+            List of images that were predicted incorrectly.
+            
+        health_pic : list
+            List of images in the test set that are predicted to being healthy.
+        
+        blight_pic : list
+            List of images in the test set that are predicted to being blighted.
+        """
         correct_pic, incorrect_pic = self.infoForProgress(train_img_names)
         test_pic = list(test.index.values)
         y_pred, y_prob = self.GetUnknownPredictions(test)
@@ -220,6 +259,17 @@ class Active_ML_Model:
         self.sample, self.test = sampling_method(self.ml_model, n_samples)
     
     def infoForProgress(self):
+        """
+        This function returns the information nessessary to display the progress of the active learning model.
+            
+        Returns
+        -------
+        correct_pic : list
+            List of images that were predicted correctly.
+            
+        incorrect_pic : list
+            List of images that were predicted incorrectly.
+        """
         y_actual = self.ml_model.train['y_value']
         y_pic = list(self.ml_model.train.index)
         y_pred, y_prob = self.ml_model.GetKnownPredictions(self.ml_model.train)
@@ -234,6 +284,23 @@ class Active_ML_Model:
         return correct_pic, incorrect_pic
     
     def infoForResults(self):
+        """
+        This function returns the information nessessary to display the final results of the active learning model.
+            
+        Returns
+        -------
+        correct_pic : list
+            List of images that were predicted correctly.
+            
+        incorrect_pic : list
+            List of images that were predicted incorrectly.
+            
+        health_pic : list
+            List of images in the test set that are predicted to being healthy.
+        
+        blight_pic : list
+            List of images in the test set that are predicted to being blighted.
+        """
         correct_pic, incorrect_pic = self.infoForProgress()
         test_pic = list(self.ml_model.train.idx)
         y_pred, y_prob = self.ml_model.GetUnknownPredictions(self.ml_model.test)
@@ -247,5 +314,12 @@ class Active_ML_Model:
         return correct_pic, incorrect_pic, health_pic, blight_pic
     
 class AL_Encoder(JSONEncoder):
+    """
+    This class attempts to make the Active_ML_Model JSON serializable.
+    
+    Warning
+    -------
+    Active_ML_Model is not JSON serializable and thus this class does not work.
+    """
     def default(self, o):
         return o.__dict__

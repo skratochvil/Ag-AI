@@ -1,31 +1,45 @@
 # -*- coding: utf-8 -*-
+"""@package ImagePreprocessing
+This module is responsible for turning pictures into features that are usable for machine learning modules
 """
-Created on Sat Feb  8 11:20:09 2020
-@author: Donovan
-"""
+import cv2
+#conda install -c conda-forge opencv=3.4.1
+#3-Clause BSD License
 
+import os
+import csv
+import numpy as np
+from skimage.io import imread, imshow
+import matplotlib.pyplot as plt
+from skimage.color import rgb2hsv
+
+#conda install -c anaconda scikit-image
+#BSD 3-Clause
 
 class ImagePreprocessing:
-    """@package ImagePreprocessing
+    """
 This class extracts a number of features from the images and saves them in a CSV
 to be used by the machine learning class.
 
 """
+    def __init__(self):
+        """
+        Constructor function that handles importing all essential libraries.
+        """
+        import cv2
+        #conda install -c conda-forge opencv=3.4.1
+        #3-Clause BSD License
 
-    import cv2
-    #conda install -c conda-forge opencv=3.4.1
-    #3-Clause BSD License
-    
-    import os
-    import csv
-    import numpy
-    from skimage.io import imread, imshow
-    import matplotlib.pyplot as plt
-    from skimage.color import rgb2hsv
-    #conda install -c anaconda scikit-image
-    #BSD 3-Clause
-    
-    def getAdvancedFeatures(imageIn):
+        import os
+        import csv
+        import numpy as np
+        from skimage.io import imread, imshow
+        import matplotlib.pyplot as plt
+        from skimage.color import rgb2hsv
+        
+      
+ 
+    def getAdvancedFeatures(self, imageIn):
         """
         Returns a tuple of advanced features.
 
@@ -96,49 +110,146 @@ to be used by the machine learning class.
        
         return returnValues
     
-    
-    def avgGray(image):
-        grayscaleArray = numpy.reshape(image, -1)
-        gray_mean = numpy.mean(grayscaleArray)
+    def avgGray(self, image):
+        """
+        Returns the average darkness (gray) of the image.
+
+        Parameters
+        ----------
+        image : Image
+            The image to process.
+
+        Returns
+        -------
+        gray_mean : double
+            The average gray of the image.
+
+        """
+        grayscaleArray = np.reshape(image, -1)
+        gray_mean = np.mean(grayscaleArray)
         return gray_mean
     
-    def avgRed(image):
+    def avgRed(self, image):
+        """
+        Returns the average red of the image.
+
+        Parameters
+        ----------
+        image : Image
+            The image to process.
+
+        Returns
+        -------
+        red_mean : double
+            The average red of the image.
+
+        """
         red = image[0:4000, 0:6000, 0]
-        red = numpy.reshape(red, -1)
-        red_mean = numpy.mean(red)
+        red = np.reshape(red, -1)
+        red_mean = np.mean(red)
         return red_mean
     
-    def avgGreen(image):
+    def avgGreen(self, image):
+        """
+        Returns the average green of the image.
+
+        Parameters
+        ----------
+        image : Image
+            The image to process.
+
+        Returns
+        -------
+        green_mean : double
+            The average green of the image.
+
+        """
         green = image[0:4000, 0:6000, 1]
-        green = numpy.reshape(green, -1)
-        green_mean = numpy.mean(green)
+        green = np.reshape(green, -1)
+        green_mean = np.mean(green)
         return green_mean
     
-    def avgBlue(image):
+    def avgBlue(self, image):
+        """
+        Returns the average blue of the image.
+
+        Parameters
+        ----------
+        image : Image
+            The image to process.
+
+        Returns
+        -------
+        blue_mean : double
+            The average blue of the image.
+
+        """        
         blue = image [0:4000, 0:6000, 2]
-        blue = numpy.reshape(blue, -1)
-        blue_mean = numpy.mean(blue)
+        blue = np.reshape(blue, -1)
+        blue_mean = np.mean(blue)
         return blue_mean
         
-    def numBrownRed(image):
+    def numBrownRed(self, image):
+        """
+        Returns the number of pixels that are red but in the range of brown.
+
+        Parameters
+        ----------
+        image : Image
+            The image to process.
+
+        Returns
+        -------
+        num_brown_red : double
+            The number of pixels that are red but in the range of brown.
+
+        """
         red = image[0:4000, 0:6000, 0]
-        red = numpy.reshape(red, -1)
-        num_brown_red, bin_edges = numpy.histogram(red, bins=1, range=(180, 250))
+        red = np.reshape(red, -1)
+        num_brown_red, bin_edges = np.histogram(red, bins=1, range=(180, 250))
         return num_brown_red[0]
     
-    def numBrownGreen(image):
+    def numBrownGreen(self, image):
+        """
+        Returns the number of pixels that are green but in the range of brown.
+
+        Parameters
+        ----------
+        image : Image
+            The image to process.
+
+        Returns
+        -------
+        num_brown_green : double
+            The number of pixels that are green but in the range of brown.
+
+        """        
         green = image[0:4000, 0:6000, 1]
-        green = numpy.reshape(green, -1)
-        num_brown_green, bin_edges = numpy.histogram(green, bins=1, range=(160, 200))
+        green = np.reshape(green, -1)
+        num_brown_green, bin_edges = np.histogram(green, bins=1, range=(160, 200))
         return num_brown_green[0]
     
-    def numBrownBlue(image):
+    def numBrownBlue(self, image):
+        """
+        Returns the number of pixels that are blue but in the range of brown.
+
+        Parameters
+        ----------
+        image : Image
+            The image to process.
+
+        Returns
+        -------
+        num_brown_red : double
+            The number of pixels that are blue but in the range of brown.
+
+        """
         blue = image [0:4000, 0:6000, 2]
-        blue = numpy.reshape(blue, -1)
-        num_brown_blue, bin_edges = numpy.histogram(blue, bins=1, range=(150, 240))
+        blue = np.reshape(blue, -1)
+        num_brown_blue, bin_edges = np.histogram(blue, bins=1, range=(150, 240))
         return num_brown_blue[0]
     
-    def FdHuMoments(image):
+    def FdHuMoments(self, image):
         """
         Extracts Hu moments feature from an image
         Parameters
@@ -158,7 +269,7 @@ to be used by the machine learning class.
         feature = cv2.HuMoments(cv2.moments(image)).flatten()
         return feature
     
-    def FdHaralick(image):
+    def FdHaralick(self, image):
         import mahotas
         #
         #MIT License
@@ -184,7 +295,7 @@ to be used by the machine learning class.
         # return the result
         return haralick
     
-    def FdHistogram(image, mask=None, bins = 8):
+    def FdHistogram(self, image, mask=None, bins = 8):
         """
         Extracts color histogram feature from an image
         Parameters
@@ -210,8 +321,34 @@ to be used by the machine learning class.
         return hist.flatten()
     
     import numpy as np
-    def ImageProcessing(folder_name):
+    def ImageProcessing(self, folder_name):
+        """
+        Converts the blighted and healthy images into usable features and saves these features to a csv file.
+    
+        Parameters
+        ----------
+        folder_name : string
+            name of the folder that contains the images.
+            
+        """
         def allFilesInDir(dir_name, label):
+            """
+            Converts all the images in the directory into usable features and saves these features to a csv file.
+        
+            Parameters
+            ----------
+            dir_name : string
+                name of the directory that contains the images.
+                
+            label : string
+                What that image represents.
+                
+            Returns
+            -------
+            csvOut : list
+                2d list that contains all the features of all pictures in the directory.
+                
+            """
             csvOut = []
             counter = 0
             for root, dirs, files in os.walk(os.path.abspath(dir_name)):
@@ -219,26 +356,25 @@ to be used by the machine learning class.
     
                     image = imread(os.path.join(root, file), as_gray=True)
                     import matplotlib.pyplot as plt
-                    plt.imshow(image, cmap='gray', vmin=0, vmax=1)
-                    plt.show()
-                    gray_mean = avgGray(image)
+            
+                    gray_mean = self.avgGray(image)
     
                     image = imread(os.path.join(root, file))
-                    red_mean = avgRed(image)
-                    green_mean = avgGreen(image)
-                    blue_mean = avgBlue(image)
-                    num_brown_red = numBrownRed(image)
-                    num_brown_green = numBrownGreen(image)
-                    num_brown_blue = numBrownBlue(image)
-                    advanced_features = getAdvancedFeatures(image)
+                    red_mean = self.avgRed(image)
+                    green_mean = self.avgGreen(image)
+                    blue_mean = self.avgBlue(image)
+                    num_brown_red = self.numBrownRed(image)
+                    num_brown_green = self.numBrownGreen(image)
+                    num_brown_blue = self.numBrownBlue(image)
+                    advanced_features = self.getAdvancedFeatures(image)
                     
                     image = cv2.imread(os.path.join(root, file))
-                    fv_hu_moments = FdHuMoments(image)
-                    fv_haralick = FdHaralick(image)
+                    fv_hu_moments = self.FdHuMoments(image)
+                    fv_haralick = self.FdHaralick(image)
     #                fv_histrogram = FdHistogram(image)
     
-                    feature_vector = np.hstack([file, fv_hu_moments, fv_haralick, gray_mean, red_mean, green_mean, blue_mean, 
-                                                num_brown_red, num_brown_green, num_brown_blue, advanced_features[0], 
+                    feature_vector = np.hstack([file, fv_hu_moments[0], fv_haralick[0], fv_haralick[3], fv_haralick[7], fv_haralick[8], gray_mean, green_mean, 
+                                                num_brown_red, advanced_features[0], 
                                                 advanced_features[1],  advanced_features[2],  advanced_features[3],
                                                  advanced_features[4],  advanced_features[5],  advanced_features[6], label])
                     
@@ -248,21 +384,23 @@ to be used by the machine learning class.
             return csvOut
         
         #Please update these column labels if you add features in order to help with feature selection.
-        columnLabels = ('fileName','fvhu','fvhu2','fvhu3','fvhu4','fvhu5','fvhu6','fvhu7',
-                        'fvha1','fvha2','fvha3','fvha4','fvha5','fvha6','fvha7','fvha7',
-                        'fvha8','fvha9','fvha10','fvha11','fvha12',
-                        'gray_mean', 'red_mean', 'green_mean', 'blue_mean', 'num_brown_red', 'num_brown_green', 
-                        'num_brown_blue', 'numForegroundPxls', 'blightedHSV_pxls', 'blightedHSV_ratio', 
+        columnLabels = ('fileName','fvhu', 'fvha1', 'fvha4', 'fvha8','fvha9',
+                       'gray_mean',  'green_mean',  'num_brown_red', 'numForegroundPxls', 'blightedHSV_pxls', 'blightedHSV_ratio', 
                         'numRGB_blightedPxls', 'blightedRGBRatio', 'RGB_and_HSV_blighted', 'RGB_and_HSV_both_ratio', 'label')
         
         blighted_features = allFilesInDir('images/blighted', 'B')
         healthy_features = allFilesInDir('images/healthy', 'H')
         csvfile = open('csvOut.csv','w', newline = '')
         obj = csv.writer(csvfile)
-        obj.writerow(columnLabels)
+        #Uncomment to add column labels
+        #obj.writerow(columnLabels)
         obj.writerows(blighted_features)
         obj.writerows(healthy_features)
     
-    #Main
-    folder_name = 'images/'
-    ImageProcessing(folder_name)
+#Main
+folder_name = '../images/'
+
+
+
+processor = ImagePreprocessing()
+processor.ImageProcessing(folder_name)

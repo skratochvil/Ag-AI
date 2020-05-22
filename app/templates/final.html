@@ -1,50 +1,130 @@
 {% extends "base.html" %}
-
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/final_format.css') }}">
 <body>
-	<!--This entire div could potentially be made into a re-usable chunk later-->
-	<div class = "heading">
-		<h1> AI for Agriculture</h1>
-		<a href = "index.html" class="button">Home</a>
+	<div class="container">
+		<div class="row border-bottom">
+			<h1 class="font-weight-light pb-3 mb-2 mt-4">Final
+				Results</h1>
+		</div>
+		<div class="text-right">
+			<a href="index.html"><button
+					class="mb-2 mt-4 active_button">Home</button></a>
+		</div>
+		<div class="container">
+
+			<h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Correct(User): {{correctNum}}</h5>
+
+			<hr class="mt-2 mb-5">
+
+			<div class="row text-center text-lg-left">
+				{%for i in correct%}
+				<div class="col-lg-3 col-md-4 col-6 d-block mb-4 h-100">
+					<img class="img-fluid img-thumbnail"
+						src="https://cornimagesbucket.s3.us-east-2.amazonaws.com/images_compressed/{{i}}"
+						alt="">
+				</div>
+				{%endfor%}
+				<div id="myModal" class="modal">
+
+					<span class="close">&times;</span>
+
+					<img class="modal-content" id="imgset">
+				</div>
+			</div>
+		</div>
+		<div class="container">
+
+			<h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Incorrect(User): {{incorrectNum}}</h5>
+
+			<hr class="mt-2 mb-5">
+
+			<div class="row text-center text-lg-left">
+				{%for i in incorrect%}
+				<div class="col-lg-3 col-md-4 col-6 d-block mb-4 h-100">
+					<img class="img-fluid img-thumbnail"
+						src="https://cornimagesbucket.s3.us-east-2.amazonaws.com/images_compressed/{{i}}"
+						alt="">
+				</div>
+				{%endfor%}
+				<div id="myModal" class="modal">
+
+					<span class="close">&times;</span>
+
+					<img class="modal-content" id="imgset">
+				</div>
+			</div>
+
+		</div>
+		<div class="container">
+
+			<h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">HealthyTest(Machine): {{healthyNum}}</h5>
+
+			<hr class="mt-2 mb-5">
+
+			<div class="row text-center text-lg-left">
+				{%for i in healthy%}
+				<div class="col-lg-3 col-md-4 col-6 d-block mb-4 h-100">
+					<img class="img-fluid img-thumbnail"
+						src="https://cornimagesbucket.s3.us-east-2.amazonaws.com/images_compressed/{{i}}"
+						alt="">
+				</div>
+				{%endfor%}
+				<div id="myModal" class="modal">
+
+					<span class="close">&times;</span>
+
+					<img class="modal-content" id="imgset">
+				</div>
+			</div>
+		</div>
+		<div class="container">
+
+			<h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">UnhealthyTest(Machine): {{unhealthyNum}}</h5>
+
+			<hr class="mt-2 mb-5">
+
+			<div class="row text-center text-lg-left">
+				{%for i in unhealthy%}
+				<div class="col-lg-3 col-md-4 col-6 d-block mb-4 h-100">
+					<img class="img-fluid img-thumbnail"
+						src="https://cornimagesbucket.s3.us-east-2.amazonaws.com/images_compressed/{{i}}"
+						alt="">
+				</div>
+				{%endfor%}
+				<div id="myModal" class="modal">
+
+					<span class="close">&times;</span>
+
+					<img class="modal-content" id="imgset">
+				</div>
+			</div>
+		</div>
 	</div>
-	
-	<div class = "middle">
-		<br><th>Correct(User): {{correctNum}}</th>
-		<br>
- 		<th><div class="Frame">
-			{%for i in correct%}
-    			<img src="https://cornaistorage.s3.us-east-2.amazonaws.com/images/{{i}}" style="width:50px;height:50px;" >
-    		{%endfor%}
+		<footer class="page-footer font-small">
+	    <div class="footer-copyright text-center py-3">&copy; 2020 Copyright:
+	    <a href="/">
+	        CornAI</a>
+	        </div>
+	 </footer>
+	<script>
+	var modal = document.getElementById('myModal');
 
-		</div></th>
+	var images = document.querySelectorAll(".img-thumbnail");
+	var modalImg = document.getElementById("imgset");
+	for(let i = 0; i < images.length; i++){
+	  images[i].onclick = function(){
+	    modal.style.display = "block";
+	    modalImg.src = this.src;
+	  }
+	}
 
+	var span = document.getElementsByClassName("close")[0];
 
-		<br><th>Incorrect(User): {{incorrectNum}}</th>
-		<br>
-		<th><div class="Frame">
-			{%for i in incorrect%}
-    			<img src="https://cornaistorage.s3.us-east-2.amazonaws.com/images/{{i}}" style="width:50px;height:50px;" >
-    		{%endfor%}
-
-		</div></th>
-		<!-- These images haven't been sent to the user -->
-		<br><th>HealthyTest(Machine): {{healthyNum}}</th>
-		<br>
-		<th><div class="Frame">
-			{%for i in healthy%}
-    			<img src="https://cornaistorage.s3.us-east-2.amazonaws.com/images/{{i}}" style="width:50px;height:50px;" >
-    		{%endfor%}
-		</div></th>
-		<br><th>UnhealthyTest(Machine): {{unhealthyNum}}</th>
-		<br>
-		<th><div class="Frame">
-			{%for i in unhealthy%}
-    			<img src="https://cornaistorage.s3.us-east-2.amazonaws.com/images/{{i}}" style="width:50px;height:50px;" >
-    		{%endfor%}
-
-		</div></th>
-
-	</div>
+	span.onclick = function() {
+	  modal.style.display = "none";
+	}
+	</script>
 </body>
 </html>
 {% endblock %}

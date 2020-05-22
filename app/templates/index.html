@@ -1,24 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/index_format.css') }}">
 <body>
-	<!--This entire div could potentially be made into a re-usable chunk later-->
-	<div class = "heading">
-		<h1> AI for Agriculture</h1>
-		<a href = "index.html" class = "button">Home</a>
+	<div class="container-fluid">
+		<div class="row no-gutter">
+			<div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+			<div class="col-md-8 col-lg-6">
+				<div class="start d-flex align-items-center py-5">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-9 col-lg-8 mx-auto">
+								<h1 class="start-heading mb-4">
+									AI for Agriculture
+									</h1>
+									<h4>Agriculture for AI is an experiment with the goal of
+										improving farmers' trust in AI.</h4><br>
+									<h5>We hope to accomplish this using an interactive machine
+										learning program, which you can test by hitting the start
+										button below!</h5><br>
+									<a href="label.html"><button
+											class="btn btn-lg btn-primary btn-block btn-start text-uppercase font-weight-bold mb-2">Try now</button></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<!--just called this div "middle" because it's the middle of the screen. Shows up on other pages-->
-	<div class = "middle">
-		<h2>Welcome</h2>
-		<p>Agriculture for AI is an experiment with the goal of improving farmers' trust in AI.
-		We hope to accomplish this using an interactive machine learning program, which you
-		can test by hitting the start button below!</p>
-		<a href = "label.html" class = "button">Start</a>
-	</div>
-	<div class = "footer">
-		<a href = "faq.html">About Us</a><br>
-		Any additional legal info here
-	</div>
+	<footer class="page-footer font-small">
+	    <div class="footer-copyright text-center py-3">&copy; 2020 Copyright:
+	    <a href="/">
+	        CornAI</a>
+	        </div>
+	 </footer>
 </body>
 </html>
 {% endblock %}

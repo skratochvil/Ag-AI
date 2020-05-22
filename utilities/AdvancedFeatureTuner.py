@@ -9,12 +9,12 @@ import matplotlib.pyplot as plt
 from skimage import data
 from skimage.color import rgb2hsv
 
-# =============================================================================
+"""@package AdvancedFeatureTuner
 # This is a class to demonstrate the advanced feature extraction methods,
 # and to help with further tuning the model. Simply update the path below
 # to that of an image to view the results of the filters and selected blighted pixels.
 # Yellow represents 1 in the images, or a selected pixel.
-# =============================================================================
+"""
 
 fileIn = 'C:/school/Ag-AI/images - Copy/blighted/DSC00200.JPG'
 
