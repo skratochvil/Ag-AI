@@ -9,7 +9,7 @@
                             <span class="fa fa-info-circle" style="font-size:24px"></span></h1>
 		</div>
 		<div class="text-right">
-			<a href="index.html"><button class="mb-2 mt-4 active_button">Home</button></a> 
+			<a href="index.html"><button class="mb-2 mt-4 active_button">Home</button></a>
 			<br><br>
 			<h5 class="font-weight-normal">Confidence: {{confidence}}
 			{% if confidence == 1 %}
@@ -85,6 +85,8 @@
 						src="https://cornimagesbucket.s3.us-east-2.amazonaws.com/images_compressed/{{health_test[i]}}"
 						alt="">
 					<h6 class="font-weight-normal">Individual Confidence: {{"{:.0%}".format(h_prob[i])}}
+					<h6 class="font-weight-normal">Disagree with the prediction?
+	                <input type="checkbox" name="yes"><br>
 				</div>
 				{%endfor%}
 				<div id="myModal" class="modal">
@@ -111,6 +113,8 @@
 						src="https://cornimagesbucket.s3.us-east-2.amazonaws.com/images_compressed/{{unhealth_test[i]}}"
 						alt="">
 					<h6 class="font-weight-normal">Individual Confidence: {{"{:.0%}".format(b_prob[i])}}
+					<h6 class="font-weight-normal">Disagree with the prediction?
+	                <input type="checkbox" name="yes"><br>
 				</div>
 				{%endfor%}
 				<div id="myModal" class="modal">
@@ -120,6 +124,7 @@
 					<img class="modal-content" id="imgset">
 				</div>
 			</div>
+			<div id="result"><h5 class="font-weight-normal">Total Number of Disagreed Predictions = <span id="selected">0</span></div>
 		</div>
 	</div>
 		<footer class="page-footer font-small">
@@ -147,6 +152,16 @@
 	}
 	$(document).ready(function(){
         $('[data-toggle="popover"]').popover();
+    });
+
+    const selectedElm = document.getElementById('selected');
+
+    function showChecked(){
+    selectedElm.innerHTML = document.querySelectorAll('input[name=yes]:checked').length;
+    }
+
+    document.querySelectorAll("input[name=yes]").forEach(i=>{
+    i.onclick = () => showChecked();
     });
 	</script>
 </body>
