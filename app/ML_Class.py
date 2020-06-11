@@ -182,17 +182,28 @@ class ML_Model:
         blight_pic : list
             List of images in the test set that are predicted to being blighted.
         """
-        health_pic_user, blight_pic_user = self.infoForProgress(train_img_names)
+                health_pic_user, blight_pic_user = self.infoForProgress(train_img_names)
         test_pic = list(test.index.values)
         y_pred, y_prob = self.GetUnknownPredictions(test)
         health_pic = []
         blight_pic = []
+        health_pic_prob = []
+        blight_pic_prob = []
         for y_idx, y in enumerate(y_pred):
             if y == 'H':
                 health_pic.append(test_pic[y_idx])
+                health_pic_prob.append(y_prob[y_idx])
             elif y == 'B':
                 blight_pic.append(test_pic[y_idx])
-        return health_pic_user, blight_pic_user, health_pic, blight_pic
+                blight_pic_prob.append(y_prob[y_idx])
+        health_list = list(zip(health_pic,health_pic_prob))
+        blight_list = list(zip(blight_pic,blight_pic_prob))
+        health_list_sorted = sorted(health_list, reverse=True, key = lambda x: x[1])
+        blight_list_sorted = sorted(blight_list, reverse=True, key = lambda x: x[1])
+        new_health_pic, new_health_pic_prob = list(zip(*health_list_sorted))
+        new_blight_pic, new_blight_pic_prob = list(zip(*blight_list_sorted))
+        
+        return health_pic_user, blight_pic_user, new_health_pic, new_blight_pic, new_health_pic_prob, new_blight_pic_prob
 
 class Active_ML_Model:
     """
@@ -341,14 +352,25 @@ class Active_ML_Model:
         health_pic_user, blight_pic_user = self.infoForProgress()
         test_pic = list(self.ml_model.train.idx)
         y_pred, y_prob = self.ml_model.GetUnknownPredictions(self.ml_model.test)
-        health_pic = []
+       health_pic = []
         blight_pic = []
+        health_pic_prob = []
+        blight_pic_prob = []
         for y_idx, y in enumerate(y_pred):
             if y == 'H':
                 health_pic.append(test_pic[y_idx])
+                health_pic_prob.append(y_prob[y_idx])
             elif y == 'B':
                 blight_pic.append(test_pic[y_idx])
-        return health_pic_user, blight_pic_user, health_pic, blight_pic
+                blight_pic_prob.append(y_prob[y_idx])
+        health_list = list(zip(health_pic,health_pic_prob))
+        blight_list = list(zip(blight_pic,blight_pic_prob))
+        health_list_sorted = sorted(health_list, reverse=True, key = lambda x: x[1])
+        blight_list_sorted = sorted(blight_list, reverse=True, key = lambda x: x[1])
+        new_health_pic, new_health_pic_prob = list(zip(*health_list_sorted))
+        new_blight_pic, new_blight_pic_prob = list(zip(*blight_list_sorted))
+        
+        return health_pic_user, blight_pic_user, new_health_pic, new_blight_pic, new_health_pic_prob, new_blight_pic_prob
 
 class AL_Encoder(JSONEncoder):
     """
