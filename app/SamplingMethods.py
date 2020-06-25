@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-"""@package SamplingMethods
-This method contains different sampling method that is responsible for determining which pictures to send back to the user.
+"""
+Created on Tue Mar 10 10:48:17 2020
+
+@author: Donovan
 """
 
 def lowestPercentage(ml_model, X_test, n):

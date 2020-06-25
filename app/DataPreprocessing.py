@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-"""@package DataPreprocessing
-This module is for class objects that prepare feature data for the machine learning modules.
+"""
+Created on Sat Feb  8 11:21:32 2020
+
+@author: Donovan
 """
 class DataPreprocessing:
     """

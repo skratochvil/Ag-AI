@@ -112,17 +112,17 @@ class ML_Model:
     def infoForProgress(self, train_img_names):
         """
         This function returns the information nessessary to display the progress of the active learning model.
-        
+
         Parameters
         ----------
         train_img_names : list
             list of image names in the training set.
-            
+
         Returns
         -------
         health_pic : list
             List of images that were predicted as healthy.
-            
+
         blight_pic : list
             List of images that were predicted as unhealthy.
         """
@@ -160,29 +160,29 @@ class ML_Model:
     def infoForResults(self, train_img_names, test):
         """
         This function returns the information nessessary to display the final results of the active learning model.
-        
+
         Parameters
         ----------
         train_img_names : list
             list of image names in the training set.
         test : pandas dataframe
             The test set of the machine learning model.
-            
+
         Returns
         -------
         health_pic_user : list
             List of images that were predicted as healthy.
-            
+
         blight_pic_user : list
             List of images that were predicted as blight.
-            
+
         health_pic : list
             List of images in the test set that are predicted to being healthy.
-        
+
         blight_pic : list
             List of images in the test set that are predicted to being blighted.
         """
-                health_pic_user, blight_pic_user = self.infoForProgress(train_img_names)
+        health_pic_user, blight_pic_user = self.infoForProgress(train_img_names)
         test_pic = list(test.index.values)
         y_pred, y_prob = self.GetUnknownPredictions(test)
         health_pic = []
@@ -200,9 +200,17 @@ class ML_Model:
         blight_list = list(zip(blight_pic,blight_pic_prob))
         health_list_sorted = sorted(health_list, reverse=True, key = lambda x: x[1])
         blight_list_sorted = sorted(blight_list, reverse=True, key = lambda x: x[1])
-        new_health_pic, new_health_pic_prob = list(zip(*health_list_sorted))
-        new_blight_pic, new_blight_pic_prob = list(zip(*blight_list_sorted))
-        
+        if health_pic and health_pic_prob:
+            new_health_pic, new_health_pic_prob = list(zip(*health_list_sorted))
+        else:
+            new_health_pic = []
+            new_health_pic_prob = []
+        if blight_pic and blight_pic_prob:
+            new_blight_pic, new_blight_pic_prob = list(zip(*blight_list_sorted))
+        else:
+            new_blight_pic = []
+            new_blight_pic_prob = []
+
         return health_pic_user, blight_pic_user, new_health_pic, new_blight_pic, new_health_pic_prob, new_blight_pic_prob
 
 class Active_ML_Model:
@@ -291,12 +299,12 @@ class Active_ML_Model:
     def infoForProgress(self):
         """
         This function returns the information nessessary to display the progress of the active learning model.
-            
+
         Returns
         -------
         health_pic : list
             List of images that were predicted as healthy.
-            
+
         blight_pic : list
             List of images that were predicted as unhealthy.
         """
@@ -334,25 +342,25 @@ class Active_ML_Model:
     def infoForResults(self):
         """
         This function returns the information nessessary to display the final results of the active learning model.
-            
+
         Returns
         -------
         health_pic_user : list
             List of images that were predicted correctly.
-            
+
         blight_pic_user : list
             List of images that were predicted incorrectly.
-            
+
         health_pic : list
             List of images in the test set that are predicted to being healthy.
-        
+
         blight_pic : list
             List of images in the test set that are predicted to being blighted.
         """
         health_pic_user, blight_pic_user = self.infoForProgress()
         test_pic = list(self.ml_model.train.idx)
         y_pred, y_prob = self.ml_model.GetUnknownPredictions(self.ml_model.test)
-       health_pic = []
+        health_pic = []
         blight_pic = []
         health_pic_prob = []
         blight_pic_prob = []
@@ -369,13 +377,23 @@ class Active_ML_Model:
         blight_list_sorted = sorted(blight_list, reverse=True, key = lambda x: x[1])
         new_health_pic, new_health_pic_prob = list(zip(*health_list_sorted))
         new_blight_pic, new_blight_pic_prob = list(zip(*blight_list_sorted))
-        
+        if health_pic and health_pic_prob:
+            new_health_pic, new_health_pic_prob = list(zip(*health_list_sorted))
+        else:
+            new_health_pic = []
+            new_health_pic_prob = []
+        if blight_pic and blight_pic_prob:
+            new_blight_pic, new_blight_pic_prob = list(zip(*blight_list_sorted))
+        else:
+            new_blight_pic = []
+            new_blight_pic_prob = []
+
         return health_pic_user, blight_pic_user, new_health_pic, new_blight_pic, new_health_pic_prob, new_blight_pic_prob
 
 class AL_Encoder(JSONEncoder):
     """
     This class attempts to make the Active_ML_Model JSON serializable.
-    
+
     Warning
     -------
     Active_ML_Model is not JSON serializable and thus this class does not work.
