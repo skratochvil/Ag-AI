@@ -9,11 +9,11 @@
                             <span class="fa fa-info-circle" style="font-size:24px"></span></h1>
 		</div>
 		<div class="text-right">
-			<a href="index.html"><button class="mb-2 mt-4 active_button">Home</button></a>
+			<a href="index.html"><button class="mb-2 mt-4 active_button" data-toggle="tooltip" data-placement="left" title="Go back to the home page and restart training">Home</button></a>
 			<br><br>
 			<h5 class="font-weight-normal">Confidence: {{confidence}}
 			{% if confidence == 1 %}
-			<a href="javascript:void(0)" data-toggle="popover" data-trigger="focus" data-content="This confidence level indicates you missed all labels.">
+			<a href="javascript:void(0)" data-toggle="popover" data-trigger="focus" data-content="This confidence level indicates you missed all labels or you gave the same label for all training images.">
                             <span class="fa fa-info-circle" style="font-size:24px"></span></h5></a>
             {% else %}
             <a href="javascript:void(0)" data-toggle="popover" data-trigger="focus" data-content="The confidence level is based on the average of cross-validation. &quot;More specifically the labeled images are split into three equal size sets of images. Each set of images is predicted based on the other two sets of images. The accuracy of the model's ability to predict each set of images is averaged giving the confidence value.&quot;">
@@ -31,12 +31,12 @@
 			<div class="row text-center text-lg-left">
 				{%for i in health_user%}
 				<div class="col-lg-3 col-md-4 col-6 d-block mb-4 h-100">
-					<img class="img-fluid img-thumbnail"
+					<img class="img-fluid img-rounded"
 						src="https://cornimagesbucket.s3.us-east-2.amazonaws.com/images_compressed/{{i}}"
 						alt="">
 				</div>
 				{%endfor%}
-				<div id="myModal" class="modal">
+				<div id="imgModal" class="modal">
 
 					<span class="close">&times;</span>
 
@@ -55,12 +55,12 @@
 			<div class="row text-center text-lg-left">
 				{%for i in blight_user%}
 				<div class="col-lg-3 col-md-4 col-6 d-block mb-4 h-100">
-					<img class="img-fluid img-thumbnail"
+					<img class="img-fluid img-rounded"
 						src="https://cornimagesbucket.s3.us-east-2.amazonaws.com/images_compressed/{{i}}"
 						alt="">
 				</div>
 				{%endfor%}
-				<div id="myModal" class="modal">
+				<div id="imgModal" class="modal">
 
 					<span class="close">&times;</span>
 
@@ -80,16 +80,16 @@
 
 			<div class="row text-center text-lg-left">
 				{%for i in range(0, healthyNum)%}
-				<div class="col-lg-3 col-md-4 col-6 d-block mb-4 h-100">
-					<img class="img-fluid img-thumbnail"
+				<div id="healthy_checkboxes" class="col-lg-3 col-md-4 col-6 d-block mb-4 h-100">
+					<img class="img-fluid img-rounded"
 						src="https://cornimagesbucket.s3.us-east-2.amazonaws.com/images_compressed/{{health_test[i]}}"
 						alt="">
 					<h6 class="font-weight-normal">Individual Confidence: {{"{:.0%}".format(h_prob[i])}}
 					<h6 class="font-weight-normal">Disagree with the prediction?
-	                <input type="checkbox" name="yes"><br>
+	                <input type="checkbox" name="healthy" value="{{health_test[i]}}" conf-value="{{h_prob[i]}}"><br>
 				</div>
 				{%endfor%}
-				<div id="myModal" class="modal">
+				<div id="imgModal" class="modal">
 
 					<span class="close">&times;</span>
 
@@ -97,6 +97,7 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="container">
 
 			<h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Unhealthy Test(Machine): {{unhealthyNum}} ({{unhealthyPct}})
@@ -108,35 +109,41 @@
 
 			<div class="row text-center text-lg-left">
 				{%for i in range(0, unhealthyNum)%}
-				<div class="col-lg-3 col-md-4 col-6 d-block mb-4 h-100">
-					<img class="img-fluid img-thumbnail"
+				<div id="unhealthy_checkboxes" class="col-lg-3 col-md-4 col-6 d-block mb-4 h-100">
+					<img class="img-fluid img-rounded"
 						src="https://cornimagesbucket.s3.us-east-2.amazonaws.com/images_compressed/{{unhealth_test[i]}}"
 						alt="">
 					<h6 class="font-weight-normal">Individual Confidence: {{"{:.0%}".format(b_prob[i])}}
 					<h6 class="font-weight-normal">Disagree with the prediction?
-	                <input type="checkbox" name="yes"><br>
+	                <input type="checkbox" name="unhealthy" value="{{unhealth_test[i]}}" conf-value="{{b_prob[i]}}"><br>
 				</div>
 				{%endfor%}
-				<div id="myModal" class="modal">
+				<div id="imgModal" class="modal">
 
 					<span class="close">&times;</span>
 
 					<img class="modal-content" id="imgset">
 				</div>
 			</div>
-			<div id="result"><h5 class="font-weight-normal">Total Number of Disagreed Predictions = <span id="selected">0</span></div>
+        </div>
+        <div class="container">
+            <hr class="mt-2 mb-5">
+            <div id="result">
+			    <p><h5 class="font-weight-normal">The Number of Disagreed Predictions for Healthy: <span id="healthyselected">0</span></p>
+			    <p><h5 class="font-weight-normal">The Number of Disagreed Predictions for Unhealthy: <span id="unhealthyselected">0</span></p>
+			    <br>
+			    <button id="img" class="mb-2 mt-4 active_button">Show Selected Images</button>
+			</div>
 		</div>
 	</div>
-		<footer class="page-footer font-small">
-	    <div class="footer-copyright text-center py-3">&copy; 2020 Copyright:
-	    <a href="/">
-	        CornAI</a>
-	        </div>
-	 </footer>
+    <footer class="page-footer font-small">
+    <div class="footer-copyright text-center py-3">&copy; 2020 Copyright:
+    <a href="/">CornAI</a>
+    </div>
+    </footer>
 	<script>
-	var modal = document.getElementById('myModal');
-
-	var images = document.querySelectorAll(".img-thumbnail");
+	var modal = document.getElementById('imgModal');
+	var images = document.querySelectorAll(".img-rounded");
 	var modalImg = document.getElementById("imgset");
 	for(let i = 0; i < images.length; i++){
 	  images[i].onclick = function(){
@@ -147,21 +154,60 @@
 
 	var span = document.getElementsByClassName("close")[0];
 
-	span.onclick = function() {
+	span.onclick = function(){
 	  modal.style.display = "none";
 	}
 	$(document).ready(function(){
         $('[data-toggle="popover"]').popover();
     });
 
-    const selectedElm = document.getElementById('selected');
+    const healthyselectedElm = document.getElementById('healthyselected');
+    const unhealthyselectedElm = document.getElementById('unhealthyselected');
 
     function showChecked(){
-    selectedElm.innerHTML = document.querySelectorAll('input[name=yes]:checked').length;
+    healthyselectedElm.innerHTML = document.querySelectorAll('input[name=healthy]:checked').length;
+    unhealthyselectedElm.innerHTML = document.querySelectorAll('input[name=unhealthy]:checked').length;
     }
 
-    document.querySelectorAll("input[name=yes]").forEach(i=>{
+    document.querySelectorAll("input[name=healthy]").forEach(i=>{
     i.onclick = () => showChecked();
+    });
+
+    document.querySelectorAll("input[name=unhealthy]").forEach(i=>{
+    i.onclick = () => showChecked();
+    });
+    
+    $(document).ready(function(){
+        $('#img').on('click', function(){
+            
+            var healthy_list = [];
+            var unhealthy_list = [];
+            var healthy_conf_list = [];
+            var unhealthy_conf_list = [];
+            
+            $("input:checkbox[name=healthy]:checked").each(function(){
+                healthy_list.push($(this).attr("value"));
+                healthy_conf_list.push($(this).attr("conf-value"));
+            });
+            if(healthy_list.length == 0){
+                healthy_list.push("null");
+            }
+            if(healthy_conf_list.length == 0){
+                healthy_conf_list.push("0");
+            }
+            
+            $("input:checkbox[name=unhealthy]:checked").each(function(){
+                unhealthy_list.push($(this).attr("value"));
+                unhealthy_conf_list.push($(this).attr("conf-value"));
+            });
+            if(unhealthy_list.length == 0){
+               unhealthy_list.push("null"); 
+            }
+            if(unhealthy_conf_list.length == 0){
+                unhealthy_conf_list.push("0");
+            }            
+            window.location.href = '/feedback/' + healthy_list + "/" + unhealthy_list + "/" + healthy_conf_list + "/" + unhealthy_conf_list;                           
+        });
     });
 	</script>
 </body>
